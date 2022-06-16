@@ -22,9 +22,9 @@ client.distube = new DisTube(client, {
     emitAddSongWhenCreatingQueue: false,
     plugins: [new SpotifyPlugin()]
 });
-client.Database = require("./Database/Mongoose.js");
+client.Database = require("./Database/Mongoose");
 client.tools = require("../Tools/Tools");
-client.logger = require("../Tools/Logger.js");
+client.logger = require("../Tools/Logger");
 module.exports = client;
 
 // ◜    Require Systems  ◞
