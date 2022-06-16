@@ -20,6 +20,7 @@ client.distube = new DisTube(client, {
     emitAddSongWhenCreatingQueue: false,
     plugins: [new SpotifyPlugin()]
 });
+client.Database = require("./Database/Mongoose.js");
 module.exports = client;
 
 // ◜    Require Systems  ◞
