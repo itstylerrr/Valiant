@@ -14,6 +14,7 @@
     "ascii-table": "^0.0.9",
     "canvas": "^2.9.1",
     "chalk": "^4.1.2",
+    "discord-arts": "^0.0.5",
     "discord-giveaways": "^5.2.1",
     "discord-html-transcripts": "^2.5.7",
     "discord.js": "^13.8.0",
