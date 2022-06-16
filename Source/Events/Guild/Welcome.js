@@ -8,42 +8,41 @@ module.exports = {
      * @param {GuildMember} member
      * @param {Client} client 
      */
-    async execute(client, member) {
+    async execute(member, client) {
         let guild = member.guild;
-        console.log(guild);
-        // let guildData = await client.Database.fetchGuild(guild.id);
-        // const guildDb = await DB.findOne({ id: guild.id });
-        // if (!guildData.addons.welcome.enabled) return;
-        // let dbRole = guildDb.addons.welcome.role;
-        // let checkedRole = guild.roles.cache.find(r => r.id === dbRole);
-        // if (typeof checkedRole !== undefined) {
-        //     member.roles.add(checkedRole.id);
-        // }
+        let guildData = await client.Database.fetchGuild(guild.id);
+        const guildDb = await DB.findOne({ id: guild.id });
+        if (!guildData.addons.welcome.enabled) return;
+        let dbRole = guildDb.addons.welcome.role;
+        let checkedRole = guild.roles.cache.find(r => r.id === dbRole);
+        if (typeof checkedRole !== undefined) {
+            member.roles.add(checkedRole.id);
+        }
 
-        // let welcomeChannel = await client.tools.resolveChannel(guildData.addons.welcome.channel, guild);
-        // if (!welcomeChannel) return;
+        let welcomeChannel = await client.tools.resolveChannel(guildData.addons.welcome.channel, guild);
+        if (!welcomeChannel) return;
 
-        // let welcomeMsg = (guildData.addons.welcome.message === null || guildData.addons.welcome.message === "" || guildData.addons.welcome.message === " ") ? "Welcome {user.ping} to {guild.name}!" : guildData.addons.welcome.message;
+        let welcomeMsg = (guildData.addons.welcome.message === null || guildData.addons.welcome.message === "" || guildData.addons.welcome.message === " ") ? "Welcome {user.ping} to {guild.name}!" : guildData.addons.welcome.message;
 
-        // let finalMsg = await welcomeMsg
-        // .replace(/{user.ping}/g, `${member.user}`)
-        // .replace(/{user.name}/g, `${member.user.username}`)
-        // .replace(/{user.id}/g, `${member.user.id}`)
-        // .replace(/{user.tag}/g, `${member.user.tag}`)
-        // .replace(/{guild.name}/g, `${guild.name}`)
-        // .replace(/{guild.id}/g, `${guild.id}`)
-        // .replace(/{guild.totalUser}/g, `${guild.memberCount}`);
+        let finalMsg = await welcomeMsg
+        .replace(/{user.ping}/g, `${member.user}`)
+        .replace(/{user.name}/g, `${member.user.username}`)
+        .replace(/{user.id}/g, `${member.user.id}`)
+        .replace(/{user.tag}/g, `${member.user.tag}`)
+        .replace(/{guild.name}/g, `${guild.name}`)
+        .replace(/{guild.id}/g, `${guild.id}`)
+        .replace(/{guild.totalUser}/g, `${guild.memberCount}`);
 
-        // const Embed = new MessageEmbed()
-        // .setDescription(`${finalMsg}`)
-        // .setColor(client.user.accentColor)
+        const Embed = new MessageEmbed()
+        .setDescription(`${finalMsg}`)
+        .setColor(guild.me.displayHexColor)
 
-        // if (guildData.addons.welcome.embed === true) {
-        //     return welcomeChannel.send({
-        //         embeds: [Embed]
-        //     });
-        // } else {
-        //     return welcomeChannel.send({content: finalMsg });
-        // }
+        if (guildData.addons.welcome.embed === true) {
+            return welcomeChannel.send({
+                embeds: [Embed]
+            });
+        } else {
+            return welcomeChannel.send({content: finalMsg });
+        }
     }
 }
