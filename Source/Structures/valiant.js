@@ -23,6 +23,8 @@ client.distube = new DisTube(client, {
     plugins: [new SpotifyPlugin()]
 });
 client.Database = require("./Database/Mongoose.js");
+client.tools = require("./Tools/Tools.js");
+client.logger = require("./Tools/Logger.js");
 module.exports = client;
 
 // ◜    Require Systems  ◞
