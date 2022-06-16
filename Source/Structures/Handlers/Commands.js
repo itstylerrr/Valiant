@@ -70,7 +70,7 @@ module.exports = async (client, PG, chalk) => {
 
     let Embed = new MessageEmbed()
     .setTitle(`${botinfo.name}'s Start Logging`)
-    .setDescription(`All correct commands have been loaded.\n\n**Total:**${client.commands.size}`)
+    .setDescription(`All correct commands have been loaded.\n\n**Total:** ${client.commands.size}`)
     .setColor("GREEN")
     webhook.send({
         embeds: [Embed]

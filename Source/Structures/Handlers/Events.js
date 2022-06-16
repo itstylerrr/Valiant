@@ -3,9 +3,6 @@ const { webhooks, botinfo } = require("../../../Configs/main.json");
 const ascii = require("ascii-table");
 
 module.exports = async (client, PG, chalk) => {
-    const webhook = new WebhookClient({
-        url: webhooks.starts
-    });
     const Table = new ascii("Events Loaded");
     (await PG(`${(process.cwd().replace(/\\/g, "/"))}/Source/Events/*/*.js`)).map(async (file) => {
         const event = require(file);

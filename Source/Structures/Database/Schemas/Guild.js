@@ -1,5 +1,5 @@
 const mongoose = require("mongoose"),
-config = require("./../../config.json");
+config = require("../../../../Configs/main.json");
 
 module.exports = mongoose.model("Guild", new mongoose.Schema({
 

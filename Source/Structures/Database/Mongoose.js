@@ -6,7 +6,7 @@ memberSchema = require("./Schemas/Member");
 logSchema = require("./Schemas/Log");
 
 // ◜    Create/find the users DB  ◞
-module.exports fetchUser = async function(key) {
+module.exports.fetchUser = async function(key) {
     let userDB = await userSchema.findOne({ id: key });
     if (userDB) {
         return userDB;
