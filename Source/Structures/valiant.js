@@ -1,3 +1,4 @@
+console.clear();
 // ◜    Require Everything  ◞
 const config = require("../../Configs/main.json");
 const {Client, Collection} = require("discord.js");
@@ -12,6 +13,7 @@ const { SpotifyPlugin } = require("@distube/spotify");
 
 // ◜    Create Collections  ◞
 client.commands = new Collection();
+client.events = new Collection();
 
 // ◜    Add To Client  ◞
 client.distube = new DisTube(client, {
