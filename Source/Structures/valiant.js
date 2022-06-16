@@ -14,6 +14,7 @@ const { SpotifyPlugin } = require("@distube/spotify");
 // ◜    Create Collections  ◞
 client.commands = new Collection();
 client.events = new Collection();
+client.buttons = new Collection();
 
 // ◜    Add To Client  ◞
 client.distube = new DisTube(client, {
@@ -31,7 +32,7 @@ module.exports = client;
 // Coming Soon...
 
 // ◜    Require Handlers  ◞
-["Events", "Commands"].forEach(handler => {
+["Events", "Commands", "Buttons"].forEach(handler => {
     require(`./Handlers/${handler}`)(client, PG, chalk)
 });
 
