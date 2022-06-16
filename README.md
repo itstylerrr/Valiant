@@ -38,7 +38,6 @@ invite me
  - [ ] Welcome & Goodbye system
  - [ ] Finish economy
  - [ ] Add a chatbot
- - [ ] Add @users instead of URLs to Image Manip commands.
  - [ ] Get to 50 total **working** commands.
  - [ ] Get 75 + commands; current: 4
  - [ ] Add moderation commands using database
