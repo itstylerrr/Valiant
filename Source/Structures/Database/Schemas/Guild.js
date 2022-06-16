@@ -25,7 +25,7 @@ module.exports = mongoose.model("Guild", new mongoose.Schema({
             embed: false // Check if embed is enabled
         },
         settings: {
-            cbChId: "none",
+            cbChId: null,
             loggingId: null
         }
     }}
