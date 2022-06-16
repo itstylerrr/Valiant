@@ -29,20 +29,19 @@ invite me
 ## ✔ To Do:
 
  - [x] Get Valiant running
- - [x] Create basic commands
+ - [x] Create slash commands
  - [x] Add database support to bot
  - [x] Add database models
- - [x] Add server settings command
- - [x] Add global Valiant economy
- - [x] Welcome & Goodbye system
- - [x] Finish economy
- - [x] Add a chatbot
- - [x] Add @users instead of URLs to Image Manip commands.
- - [x] Get to 50 total **working** commands.
- - [ ] Get 75 + commands; current: 52
- - [ ] Add music player
+ - [x] Add music player
+ - [ ] Add server settings command
+ - [ ] Add global Valiant economy
+ - [ ] Welcome & Goodbye system
+ - [ ] Finish economy
+ - [ ] Add a chatbot
+ - [ ] Add @users instead of URLs to Image Manip commands.
+ - [ ] Get to 50 total **working** commands.
+ - [ ] Get 75 + commands; current: 4
  - [ ] Add moderation commands using database
- - [ ] Create slash commands
  - [ ] Create website
  - [ ] Add dashboard
 
