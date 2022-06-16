@@ -1,4 +1,5 @@
 const { Client, CommandInteraction, MessageEmbed } = require("discord.js");
+const config = require("../../../Configs/main.json");
 
 module.exports = {
     name: "interactionCreate",
@@ -19,8 +20,14 @@ module.exports = {
             if (command.permission && !interaction.member.permissions.has(command.permission)) {
                 return interaction.reply({ content: `You do not have the required permission for this command: \`${interaction.commandName}\`.`, ephemeral: true })
             }
-
-            command.execute(interaction, client)
+            let userData = await client.Database.fetchUser(interaction.member.id);
+            let guildData = await client.Database.fetchGuild(interaction.guild.id);
+            let data = {};
+            data.user = userData;
+            data.guild = guildData;
+            data.cmd = command;
+            data.config = config;
+            command.execute(interaction, client, data);
         }
     }
 }
