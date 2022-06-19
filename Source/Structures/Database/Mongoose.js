@@ -20,6 +20,20 @@ module.exports.fetchUser = async function(key) {
     }
 };
 
+// ◜    Create/find the guilds logging DB  ◞
+module.exports.fetchGuildsLogging = async function(key) {
+    let guildLogs = await userSchema.findOne({ GuildID: key });
+    if (guildLogs) {
+        return guildLogs;
+    } else {
+        guildLogs = new userSchema({
+            GuildID: key,
+        });
+        await guildLogs.save().catch(err => console.log(err));
+        return guildLogs;
+    }
+};
+
 // ◜    Create/find the guilds DB  ◞
 module.exports.fetchGuild = async function(key){
 

@@ -22,11 +22,13 @@ module.exports = {
             }
             let userData = await client.Database.fetchUser(interaction.member.id);
             let guildData = await client.Database.fetchGuild(interaction.guild.id);
+            let guildLogging = await client.Database.fetchGuildLogging(interaction.guild.id);
             let data = {};
             data.user = userData;
             data.guild = guildData;
             data.cmd = command;
             data.config = config;
+            data.logging = guildLogging;
             command.execute(interaction, client, data);
         }
     }
