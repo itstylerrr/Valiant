@@ -10,8 +10,8 @@ module.exports = {
      */
     async execute(interaction, client) {
         if (!interaction.isButton()) return;
+        if (!client.buttons.has(interaction.customId)) return;
         const Button = client.buttons.get(interaction.customId);
-
         if(Button.permission && !interaction.member.permissions.has(Button.permission)) {
             return interaction.reply({
                 embeds: [
@@ -38,8 +38,7 @@ module.exports = {
         let data = {};
         data.user = userData;
         data.guild = guildData;
-        data.cmd = command;
         data.config = config;
-        Button.execute(interaction, client);
+        Button.execute(interaction, client, data);
     }
 }
