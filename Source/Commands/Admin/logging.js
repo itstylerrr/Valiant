@@ -6,6 +6,17 @@ module.exports = {
     permission: "ADMINISTRATOR",
     options: [
         {
+            name: "options",
+            description: "Choost what loggs you want to have enabled.",
+            type: "STRING",
+            choices: [
+                { name: "🕴️ Member Logs", value: "member" },
+                { name: "⚒️ Mod Logs", value: "mod" },
+                { name: "🏢 Guild Logs", value: "guild" },
+                { name: "✅ All Logs", value: "all" },
+            ]
+        },
+        {
             name: "channel",
             description: "Select a channel that you want logs to be sent to.",
             type: "CHANNEL",
@@ -39,10 +50,32 @@ module.exports = {
         }
 
         // ⟬                    Command                    ⟭
-        const channel = interaction.options.getChannel("channel");
+        let channel = interaction.options.getChannel("channel");
+        if (!channel && interaction.options.getString("options")) {
+            return interaction.reply({
+                embeds: [
+                    new MessageEmbed()
+                    .setTitle("<:fail:971881490512216104> You must mention a channel to set up logging.")
+                    .setColor("RED")
+                ]
+            });
+        }
+
+        if (channel && !interaction.options.getString("options")) {
+            return interaction.reply({
+                embeds: [
+                    new MessageEmbed()
+                    .setTitle("<:fail:971881490512216104> You must select a option to set up logging.")
+                    .setColor("RED")
+                ]
+            });
+        }
+
         if (!channel) {
-            data.guild.addons.settings.loggingId = null;
-            data.guild.save();
+            data.logging.memberLogs = null;
+            data.logging.modLogs = null;
+            data.logging.guildLogs = null;
+            data.logging.save();
             return interaction.reply({
                 embeds: [
                     new MessageEmbed()
@@ -50,18 +83,62 @@ module.exports = {
                     .setColor("GREEN")
                 ]
             });
-        } else if (channel) {
-            data.guild.addons.settings.loggingId = channel.id;
-            data.guild.markModified("addons.settings");
-            await data.guild.save();
-            return interaction.reply({
-                embeds: [
-                    new MessageEmbed()
-                    .setTitle("<a:success:971880058371321877> Logging has been enabled for this server.")
-                    .setDescription(`Channel: ${channel}`)
-                    .setColor("GREEN")
-                ]
-            })
+        }
+
+        switch (interaction.options.getString("options")) {
+            case "member" : {
+                data.logging.memberLogs = channel.id;
+                data.logging.markModified();
+                data.logging.save();
+                return interaction.reply({
+                    embeds: [
+                        new MessageEmbed()
+                        .setTitle("<a:success:971880058371321877> Member logging has been enabled for the guild.")
+                        .setColor("GREEN")
+                    ]
+                });
+            }
+
+            case "mod" : {
+                data.logging.modLogs = channel.id;
+                data.logging.markModified();
+                data.logging.save();
+                return interaction.reply({
+                    embeds: [
+                        new MessageEmbed()
+                        .setTitle("<a:success:971880058371321877> Mod logging has been enabled for the guild.")
+                        .setColor("GREEN")
+                    ]
+                });
+            }
+
+            case "guild" : {
+                data.logging.guildLogs = channel.id;
+                data.logging.markModified();
+                data.logging.save();
+                return interaction.reply({
+                    embeds: [
+                        new MessageEmbed()
+                        .setTitle("<a:success:971880058371321877> Guild logging has been enabled for the guild.")
+                        .setColor("GREEN")
+                    ]
+                });
+            }
+            
+            case "all" : {
+                data.logging.memberLogs = channel.id;
+                data.logging.modLogs = channel.id;
+                data.logging.guildLogs = channel.id;
+                data.logging.markModified();
+                data.logging.save();
+                return interaction.reply({
+                    embeds: [
+                        new MessageEmbed()
+                        .setTitle("<a:success:971880058371321877> All logging has been enabled for the guild.")
+                        .setColor("GREEN")
+                    ]
+                });
+            }
         }
     }
 }
