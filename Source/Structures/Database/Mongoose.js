@@ -4,6 +4,7 @@ userSchema = require("./Schemas/User");
 guildSchema = require("./Schemas/Guild");
 memberSchema = require("./Schemas/Member");
 logSchema = require("./Schemas/Log");
+loggingSchema = require("./Schemas/Logging");
 
 // ◜    Create/find the users DB  ◞
 module.exports.fetchUser = async function(key) {
@@ -22,11 +23,11 @@ module.exports.fetchUser = async function(key) {
 
 // ◜    Create/find the guilds logging DB  ◞
 module.exports.fetchGuildsLogging = async function(key) {
-    let guildLogs = await userSchema.findOne({ GuildID: key });
+    let guildLogs = await loggingSchema.findOne({ GuildID: key });
     if (guildLogs) {
         return guildLogs;
     } else {
-        guildLogs = new userSchema({
+        guildLogs = new loggingSchema({
             GuildID: key,
         });
         await guildLogs.save().catch(err => console.log(err));

@@ -22,7 +22,7 @@ module.exports = {
             }
             let userData = await client.Database.fetchUser(interaction.member.id);
             let guildData = await client.Database.fetchGuild(interaction.guild.id);
-            let guildLogging = await client.Database.fetchGuildLogging(interaction.guild.id);
+            let guildLogging = await client.Database.fetchGuildsLogging(interaction.guild.id);
             let data = {};
             data.user = userData;
             data.guild = guildData;
