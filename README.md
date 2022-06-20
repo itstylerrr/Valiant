@@ -26,9 +26,9 @@
 First you should star this repository because you never know, it might not work if you dont. :)
 
 Anyways, to get started, you should clone this repository by running:
-    ```
+```
     git clone https://github.com/itstylerrr/Valiant.git
-    ```
+```
 Now, go into the Configs folder and rename `EXAMPLEmain.json` to `main.json`
     
 Once you have filled out all of the information, you should be able to start the bot. If you get errors you can join the [support server](https://discord.com/invite/a7V6C4dAQj). If there are any errors you should be able to solve them with basic JS and Discord.JS knowledge. I will not be helping out with any of that basic stuff unless I have time or get enough people to ask me about it.
