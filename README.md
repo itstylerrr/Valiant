@@ -72,4 +72,5 @@ Anyways if you decide to self host this bot, please make sure you give me plenty
 **Treotty#1168** - Status &  Automod. \
 **scrappie#5451** - Music system. \
 **Eleonor#6661** - Moderation command. \
+**SpikeThatMike#6397** - Public and Dev command system. \
 **Any others...** - If you believe I used any of your exact code and you want credit please add me on Discord or join the support server and explain.
