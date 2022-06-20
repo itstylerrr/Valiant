@@ -31,7 +31,7 @@ Anyways, to get started, you should clone this repository by running:
 ```
 Now, go into the Configs folder and rename `EXAMPLEmain.json` to `main.json` and fill out all of the information.
     
-If there are any errors you should be able to solve them with basic JS and Discord.JS knowledge. I will not be helping out with any of that basic stuff unless I have time or get enough people to ask me about it.
+If there are any errors you should be able to solve them with basic JS and Discord.JS knowledge. I will not be helping out with any of that basic stuff unless I have time or get enough people to ask me about it. To get help with other errors, join the [support server](https://discord.com/invite/a7V6C4dAQj)
 
 Last thing you should do is check all the files and rename every `Valiant` to whatever you want it to be.
 
