@@ -70,7 +70,7 @@ Anyways if you decide to self host this bot, please make sure you give me plenty
 **NekoBot.xyz** - NekoBot API - Image manipulation commands \
 **Worn Off Keys, Discord.JS, and The Coding Den Servers** - Helping me when I get stuck (which is alot) \
 **Treotty#1168** - Status &  Automod. \
-**scrappie#5451** - Music system. \
+**scrappie#5451** - Music system. - https://github.com/cryolabs - \
 **Eleonor#6661** - Moderation command. \
 **SpikeThatMike#6397** - Public and Dev command system. \
 **Any others...** - If you believe I used any of your exact code and you want credit please add me on Discord or join the support server and explain.
