@@ -1,3 +1,3 @@
-// const client = require("../../Structures/valiant");
+const client = require("../../Structures/valiant");
 
-// client.on("raw", (d) => client.manager.updateVoiceState(d));
+client.on("raw", (d) => client.manager.updateVoiceState(d));

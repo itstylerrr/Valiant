@@ -7,11 +7,7 @@ const fs = require("fs");
 module.exports = {
     name: "ready",
     once: true,
-    /**
-     * 
-     * @param {Client} client 
-     */
-    execute(client) {
+    async execute(client) {
         console.log(chalk.bold(chalk.red("◜     [Details]     ◞")));
         console.log(chalk.green(chalk.bold(`${botinfo.name || "Bot"}'s Start Logging ⫸`)), chalk.white("Initializing Project..."));
         const statusArray = [
@@ -71,6 +67,6 @@ module.exports = {
           )
         );
         console.log("");
-        // await client.manager.init(client.user.id);
+        await client.manager.init(client.user.id);
     }
 }

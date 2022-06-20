@@ -23,21 +23,21 @@ client.buttons = new Collection();
 client.Database = require("./Database/Mongoose");
 client.tools = require("../Tools/Tools");
 client.logger = require("../Tools/Logger");
-// client.manager = new Manager({
-//     nodes,
-//     plugins: [
-//         new Spotify({
-//             clientID: music.spotify.clientId,
-//             clientSecret: music.spotify.clientSecret,
-//         }),
-//         new Apple(),
-//         new Deezer(),
-//     ],
-//     send: (id, payload) => {
-//         let guild = client.guilds.cache.get(id);
-//         if (guild) guild.shard.send(payload);
-//     },
-// });
+client.manager = new Manager({
+    nodes,
+    plugins: [
+        new Spotify({
+            clientID: music.spotify.clientId,
+            clientSecret: music.spotify.clientSecret,
+        }),
+        new Apple(),
+        new Deezer(),
+    ],
+    send: (id, payload) => {
+        let guild = client.guilds.cache.get(id);
+        if (guild) guild.shard.send(payload);
+    },
+});
 module.exports = client;
 
 // ◜    Require Systems  ◞
