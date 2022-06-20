@@ -19,9 +19,6 @@
   <a href="https://github.com/itstylerrr/Valiant">
   <img src="https://img.shields.io/github/stars/itstylerrr/Valiant" alt="stars.png"
   </a>
-
-  <iframe src="https://discord.com/widget?id=971534964527087726&theme=dark" width="350" height="500" allowtransparency="true" frameborder="0" sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"></iframe>
-
 </div>
     
 ## 👋 Get Started:
@@ -33,13 +30,17 @@ Anyways, to get started, you should clone this repository by running:
 ```
 Now, go into the Configs folder and rename `EXAMPLEmain.json` to `main.json` and fill out all of the information.
 
-If there are any errors you should be able to solve them with basic JS and Discord.JS knowledge. I will not be helping out with any of that basic stuff unless I have time or get enough people to ask me about it. To get help with other errors, join the support server that is placed at the top of this README.
+If there are any errors you should be able to solve them with basic JS and Discord.JS knowledge. I will not be helping out with any of that basic stuff unless I have time or get enough people to ask me about it. To get help with other errors, join the support server that at the bottom of this section.
 
 Last thing you should do is check all the files and rename every `Valiant` to whatever you want it to be.
 
 Finally, if you want to rename the main file `valiant.js` you need to make sure that you rename all the imports from other files *I will not be helping you out if you decide to do this*.
 
 Anyways if you decide to self host this bot, please make sure you give me plenty of credit :) Or I will come find you and... well i cant really do anything. But please give me credit this has taken alot of time and effort :).
+
+Support Server:
+
+<iframe src="https://discord.com/widget?id=971534964527087726&theme=dark" width="350" height="500" allowtransparency="true" frameborder="0" sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"></iframe>
 
 ## ✔ To Do:
 
