@@ -20,6 +20,8 @@
   <img src="https://img.shields.io/github/stars/itstylerrr/Valiant" alt="stars.png"
   </a>
 
+  <iframe src="https://discord.com/widget?id=971534964527087726&theme=dark" width="350" height="500" allowtransparency="true" frameborder="0" sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"></iframe>
+
 </div>
     
 ## 👋 Get Started:
@@ -31,7 +33,7 @@ Anyways, to get started, you should clone this repository by running:
 ```
 Now, go into the Configs folder and rename `EXAMPLEmain.json` to `main.json` and fill out all of the information.
 
-If there are any errors you should be able to solve them with basic JS and Discord.JS knowledge. I will not be helping out with any of that basic stuff unless I have time or get enough people to ask me about it. To get help with other errors, join the support server at https://discord.com/invite/a7V6C4dAQj
+If there are any errors you should be able to solve them with basic JS and Discord.JS knowledge. I will not be helping out with any of that basic stuff unless I have time or get enough people to ask me about it. To get help with other errors, join the support server that is placed at the top of this README.
 
 Last thing you should do is check all the files and rename every `Valiant` to whatever you want it to be.
 
