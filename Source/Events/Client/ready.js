@@ -71,5 +71,6 @@ module.exports = {
           )
         );
         console.log("");
+        // await client.manager.init(client.user.id);
     }
 }
