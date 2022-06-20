@@ -1,5 +1,7 @@
 const { CommandInteraction, MessageEmbed, Client } = require("discord.js");
 const util = require("../../utils/util");
+const sourcebin = require("sourcebin");
+const pms = require("ms-prettify").default;
 const genius = require("genius-lyrics");
 const gClient = new genius.Client();
 
@@ -129,11 +131,11 @@ module.exports = {
                         }
                         case "nowplaying": {
                             const track = player.queue.current;
-
                             const npEmbed = new MessageEmbed()
                                 .setColor("BLURPLE")
                                 .setTitle("Now Playing")
-                                .setDescription(`[${track.title}](${track.uri}) [${player.queue.current.requester}]`)
+                                .setImage(track.thumbnail)
+                                .setDescription(`**${track.title} - ◜${track.author}◞ **\n\n**Duration:** ${pms(track.duration)}\n\n[URL](${track.uri})\n\n**Requested By** - ${track.requester}`)
                             return interaction.reply({ embeds: [npEmbed] })
                         }
                         case "pause": {
@@ -168,12 +170,24 @@ module.exports = {
                             const actualTrack = await gClient.songs.search(trackTitle);
                             const searches = actualTrack[0];
                             const lyrics = await searches.lyrics();
+                            const bin = await sourcebin.create(
+                                [
+                                    {
+                                        content: lyrics.toString(),
+                                        language: "text",
+                                    },
+                                ],
+                                {
+                                    title: `${trackTitle}'s Lyrics`,
+                                    description: `Lyrics for ${trackTitle}, creted by the Valiant music system.`
+                                }
+                            )
 
                             const lyricsEmbed = new MessageEmbed()
                                 .setColor("BLURPLE")
                                 .setTitle(`🔹 | Lyrics for **${trackTitle}**`)
-                                .setDescription(lyrics)
-                            return interaction.reply({ embeds: [lyricsEmbed] })     
+                                .setDescription(`[sourcebin with lyrics](${bin.url})`)
+                            return interaction.reply({ embeds: [lyricsEmbed] });
                         }
                         case "shuffle": {
                             if (!player.playing) return interaction.reply({ content: "There is nothing in the queue." });
