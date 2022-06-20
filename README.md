@@ -58,7 +58,7 @@ Anyways if you decide to self host this bot, please make sure you give me plenty
 - [ ] Finish economy
 - [ ] Add a chatbot
 - [ ] Get to 50 total **working** commands.
-- [ ] Get 75 + commands; current: 11
+- [ ] Get 75 + commands; current: 13
 - [ ] Create website
 
 ... More to come.
