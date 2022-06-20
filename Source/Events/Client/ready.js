@@ -3,6 +3,32 @@ const mongoose = require('mongoose');
 const { mongoURI, webhooks, botinfo } = require("../../../Configs/main.json");
 const chalk = require('chalk');
 const fs = require("fs");
+const os = require("os");
+const osUtils = require("os-utils");
+const ms = require("ms");
+
+const DB = require('../../Structures/Database/Schemas/ClientDB');
+
+/* ----------[CPU Usage]---------- */
+    const cpus = os.cpus();
+    const cpu = cpus[0];
+
+    // Accumulate every CPU times values
+        const total = Object.values(cpu.times).reduce(
+        (acc, tv) => acc + tv, 0
+    );
+
+    // Calculate the CPU usage
+    const usage = process.cpuUsage();
+    const currentCPUUsage = (usage.user + usage.system) * 1000;
+    const perc = currentCPUUsage / total * 100;
+
+/* ----------[RAM Usage]---------- */
+
+/**Get the process memory usage (in MB) */
+async function getMemoryUsage() {
+    return process.memoryUsage().heapUsed / (1024 * 1024).toFixed(2);
+}
 
 module.exports = {
     name: "ready",
@@ -68,5 +94,26 @@ module.exports = {
         );
         console.log("");
         await client.manager.init(client.user.id);
+        let memArray = [];
+
+        setInterval(async () => {
+
+            //Used Memory in GB
+            memArray.push(await getMemoryUsage());
+
+            if (memArray.length >= 14) {
+                memArray.shift();
+            }
+
+            // Store in Database
+            await DB.findOneAndUpdate({
+                Client: true,
+            }, {
+                Memory: memArray,
+            }, {
+                upsert: true,
+            });
+
+        }, ms("5s")); //= 5000 (ms)
     }
 }
