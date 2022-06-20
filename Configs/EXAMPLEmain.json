@@ -9,6 +9,9 @@
     "webhooks": {
         "starts": "webhook link to get start messages to"
     },
+    "API": {
+        "google": "google api key this is for the Perspective API for automod, read https://developers.perspectiveapi.com/s/docs-get-started for details."
+    },
     "music" : {
         "spotify": {
             "clientId": "spotify client id from spotify developers dashboard",
