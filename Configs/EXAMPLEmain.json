@@ -1,0 +1,30 @@
+{
+    "token": "your bots token",
+    "mongoURI": "your bots mongo URI",
+    "botinfo": {
+        "name": "your bots name",
+        "id": "your bots id",
+        "testServer": "the id of the testing server"
+    },
+    "webhooks": {
+        "starts": "webhook link to get start messages to"
+    },
+    "music" : {
+        "spotify": {
+            "clientId": "spotify client id from spotify developers dashboard",
+            "clientSecret": "spotify client secret from spotify developers dashboard"
+        },
+        "_nodesComment": "for the nodes below, dont change anything unless you know how to work lavalink. this is a free lavalink server off of google that can be used for the bot. you may delete this once acknowledged",
+        "nodes": [
+            {
+                "id": "main",
+                "host": "lavalink.oops.wtf",
+                "port": 443,
+                "password": "www.freelavalink.ga",
+                "retryAmount": 15, 
+                "retryDelay": 6000, 
+                "secure": true
+            }
+        ]
+    }
+}

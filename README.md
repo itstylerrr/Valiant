@@ -24,8 +24,22 @@
     
 ## 👋 Get Started:
     
-invite me
+    First you should star this repository because you never know, it might not work if you dont. :)
 
+    Anyways, to get started, you should clone this repository by running:
+    ```
+    git clone https://github.com/itstylerrr/Valiant.git
+    ```
+     Now, go into the Configs folder and rename `EXAMPLEmain.json` to `main.json`
+    
+    Once you have filled out all of the information, you should be able to start the bot. If you get errors you can join the [support server](https://discord.com/invite/a7V6C4dAQj). If there are any errors you should be able to solve them with basic JS and Discord.JS knowledge. I will not be helping out with any of that basic stuff unless I have time or get enough people to ask me about it.
+
+    Last thing you should do is check all the files and rename every `Valiant` to whatever you want it to be.
+
+    Finally, if you want to rename the main file `valiant.js` you need to make sure that you rename all the imports from other files *I will not be helping you out if you decide to do this*.
+
+    Anyways if you decide to self host this bot, please make sure you give me plenty of credit :) Or I will come find you and... well i cant really do anything. But please give me credit this has taken alot of time and effort :).
+    
 ## ✔ To Do:
 
  - [x] Get Valiant running
@@ -33,16 +47,16 @@ invite me
  - [x] Add database support to bot
  - [x] Add database models
  - [x] Add music player
- - [ ] Add server settings command
- - [ ] Add global Valiant economy
- - [ ] Welcome & Goodbye system
+ - [x] Add server settings command
+ - [x] Add moderation command
+ - [x] Welcome & Goodbye system
+ - [ ] Add per-guild economy system
+ - [ ] Add per-guild XP system
  - [ ] Finish economy
  - [ ] Add a chatbot
  - [ ] Get to 50 total **working** commands.
- - [ ] Get 75 + commands; current: 4
- - [ ] Add moderation commands using database
+ - [ ] Get 75 + commands; current: 11
  - [ ] Create website
- - [ ] Add dashboard
 
     
 ... More to come.
