@@ -4,6 +4,7 @@ module.exports = {
     name: "chatbot",
     description: "Select a channel for chatbot to interact in, to remove, run without options.",
     permission: "ADMINISTRATOR",
+    public: true,
     options: [
         {
             name: "channel",
