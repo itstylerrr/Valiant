@@ -71,7 +71,7 @@ Anyways if you decide to self host this bot, please make sure you give me plenty
 **Worn Off Keys, Discord.JS, and The Coding Den Servers** - Helping me when I get stuck (which is alot) \
 **Treotty#1168** - Status &  Automod. \
 **scrappie#5451** - Music system. - https://github.com/cryolabs - \
-**Eleonor#6661, WoW#4929** - Moderation command. \
+**Eleonor#6661, WoW#4929, & Ronan Films#0001** - Moderation command. \
 **SpikeThatMike#6397** - Public and Dev command system. \
 **bilekcat#2638** - AntiScam system. \
 **Any others...** - If you believe I used any of your exact code and you want credit please add me on Discord or join the support server and explain.
