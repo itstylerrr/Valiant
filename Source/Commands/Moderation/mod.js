@@ -3,6 +3,7 @@ const {
   MessageEmbed,
   Client,
   GuildMember,
+  Permissions
 } = require("discord.js");
 const ms = require("ms");
 const warnModel = require("../../Structures/Database/Schemas/warnModel");
