@@ -4,6 +4,7 @@ module.exports = {
     name: "userinfo",
     type: "USER",
     permissions: "ADMINISTRATOR",
+    public: true,
     context: true,
     /**
      * 
