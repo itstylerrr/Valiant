@@ -4,6 +4,7 @@ module.exports = {
     name: "goodbye",
     description: "Configure the goodbye messages for the guild.",
     permission: "ADMINISTRATOR",
+    public: true,
     options: [
         {
             name: "enabled",
