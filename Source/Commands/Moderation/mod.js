@@ -5,6 +5,7 @@ const {
   GuildMember,
 } = require("discord.js");
 const ms = require("ms");
+const warnModel = require("../../Structures/Database/Schemas/warnModel");
 
 module.exports = {
   name: "mod",
@@ -90,11 +91,40 @@ module.exports = {
           description: "Pick a removal from the list",
           type: "STRING",
           required: true,
-          choices: [{ name: "🗣️ Remove timeout", value: "remove timeout" }],
+          choices: [
+            { name: "🗣️ Remove Timeout", value: "remove timeout" },
+            { name: "⚠️ Remove Warn", value: "remove warn" },
+          ],
         },
         {
           name: "member",
           description: "Select the member",
+          type: "USER",
+          required: true,
+        },
+        {
+          name: "warnid",
+          description:
+            "Paste the warn ID here. Only use this if your removing a warn. ",
+          type: "STRING",
+        },
+      ],
+    },
+    {
+      name: "view",
+      description: "View information on members",
+      type: "SUB_COMMAND",
+      options: [
+        {
+          name: "option",
+          description: "Select the option that you want to view.",
+          type: "STRING",
+          required: true,
+          choices: [{ name: "⚠️ Infractions", value: "infractions" }],
+        },
+        {
+          name: "member",
+          description: "Select the member.",
           type: "USER",
           required: true,
         },
@@ -157,6 +187,13 @@ module.exports = {
                       "You can't use this action on this member, this member is equal to your rank or higher",
                     ephemeral: true,
                   });
+
+                new warnModel({
+                  userId: user.id,
+                  guildId: interaction.guild.id,
+                  moderatorId: interaction.user.id,
+                  reason,
+                }).save();
 
                 const warn = new MessageEmbed()
                   .setTitle("Succesfully warned the member")
@@ -953,9 +990,102 @@ module.exports = {
                   .send({ embeds: [tmremoval] });
               }
               break;
+
+            case "remove warn":
+              {
+                const warnId = interaction.options.getString("warnid");
+
+                if (warnId.length != 24) {
+                  return interaction.reply({
+                    embeds: [
+                      new MessageEmbed()
+                        .setTitle("🚫 Warn ID must be 24 characters.")
+                        .setColor("RED"),
+                    ],
+                  });
+                }
+
+                const data = await warnModel.findById(warnId);
+
+                const er = new MessageEmbed()
+                  .setDescription(`🚫 No warnID matching ${warnId}`)
+                  .setColor("RED");
+                if (!data)
+                  return interaction.reply({ embeds: [er], ephemeral: true });
+
+                data.delete();
+                const embed = new MessageEmbed()
+                  .setTitle("Remove Infraction")
+                  .setDescription(
+                    `Successfully removed the warn with the ID ${warnId}`
+                  );
+                const user = interaction.guild.members.cache.get(data.userId);
+                return interaction.reply({ embeds: [embed], ephemeral: true });
+              }
           }
         }
         break;
+
+        case "view": {
+          const op = options.getString("option");
+  
+          switch (op) {
+            case "infractions": {
+              const target = options.getUser("member");
+              if (!interaction.memberPermissions.has("MODERATE_MEMBERS")) {
+                return interaction.reply({
+                  embeds: [
+                    new MessageEmbed()
+                      .setTitle("🚫 Only moderators can view infractions.")
+                      .setColor("RED"),
+                  ],
+                  ephemeral: true,
+                });
+              }
+              const userWarnings = await warnModel.find({
+                userId: target.id,
+                guildId: interaction.guild.id,
+              });
+  
+              const er = new MessageEmbed()
+                .setTitle("⚠️ User Infractions")
+                .setDescription(`${target} has no existing infractions.`);
+  
+              if (!userWarnings?.length) {
+                return interaction.reply({
+                  embeds: [er],
+                  ephemeral: true,
+                });
+              }
+  
+              const embedDescription = userWarnings
+                .map((warn) => {
+                  const moderator = interaction.guild.members.cache.get(
+                    warn.moderatorId
+                  );
+  
+                  return [
+                    `**Warn ID**: ${warn.id}`,
+                    `**Moderator**: ${
+                      moderator || "Moderator Has left The Guild"
+                    }`,
+                    `**Reason**: ${warn.reason}`,
+                  ].join("\n");
+                })
+                .join("\n\n");
+  
+              const embed = new MessageEmbed()
+                .setTitle(`⚠️ ${target.tag}'s Infractions ⚠️`)
+                .setDescription(embedDescription)
+                .setColor("AQUA");
+  
+              return interaction.reply({
+                embeds: [embed],
+                ephemeral: true,
+              });
+            }
+          }
+        }
     }
   },
 };
