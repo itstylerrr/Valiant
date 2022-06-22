@@ -4,6 +4,7 @@ module.exports = {
     name: "name",
     description: "description",
     permission: "permission",
+    public: false,
     options: [
     ],
     /**
