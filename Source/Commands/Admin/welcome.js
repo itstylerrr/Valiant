@@ -4,6 +4,7 @@ module.exports = {
     name: "welcome",
     description: "Configure the welcome messages for the guild.",
     permission: "ADMINISTRATOR",
+    public: true,
     options: [
         {
             name: "enabled",
