@@ -33,6 +33,11 @@ async function getMemoryUsage() {
 module.exports = {
     name: "ready",
     once: true,
+    /**
+     * 
+     * @param {Client} client 
+     * @returns 
+     */
     async execute(client) {
         console.log(chalk.bold(chalk.red("◜     [Details]     ◞")));
         console.log(chalk.green(chalk.bold(`${botinfo.name || "Bot"}'s Start Logging ⫸`)), chalk.white("Initializing Project..."));
