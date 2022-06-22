@@ -26,7 +26,6 @@ module.exports = {
             )
             .addField("Message Content:", `\`\`\`${message.content}\`\`\``)
             .setTimestamp();
-            if (messag)
           await message.author.send({ embeds: [Ex.setDescription(`I have detected a potention scam message. You cannot send scam messages in this server. If you believe this is an error, please contact the server moderators.`)] }).catch((err) => {
             Ex.addField(`DM Sent?`, `No, unable to send a DM.\n\n**Error:**\n\`${err}\``)
           });
