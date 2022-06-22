@@ -10,6 +10,7 @@ module.exports = {
   name: "invite",
   description: "Invite the bot to your server!",
   permission: "SEND_MESSAGES",
+  public: true,
   /**
    *
    * @param {CommandInteraction} interaction
