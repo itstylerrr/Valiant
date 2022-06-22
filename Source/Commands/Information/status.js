@@ -26,6 +26,7 @@ module.exports = {
     name: "status",
     description: "Bot Status Information",
     permission: "SEND_MESSAGES",
+    public: true,
 
     /**
      * 
