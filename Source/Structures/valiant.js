@@ -16,6 +16,7 @@ const nodes = music.nodes;
 
 // ◜    Create Collections  ◞
 client.commands = new Collection();
+client.publicCommands = [];
 client.events = new Collection();
 client.buttons = new Collection();
 
