@@ -10,6 +10,8 @@ const warnModel = require("../../Structures/Database/Schemas/warnModel");
 module.exports = {
   name: "mod",
   description: "Moderation Commands",
+  permission: "MODERATE_MEMBERS",
+  public: true,
   options: [
     {
       name: "actions",
