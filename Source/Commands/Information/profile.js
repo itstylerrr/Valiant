@@ -5,6 +5,7 @@ module.exports = {
     name: "profile",
     description: "Get a profile image of a user.",
     permission: "SEND_MESSAGES",
+    public: true,
     options: [
         {
             name: "user",
