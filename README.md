@@ -73,4 +73,5 @@ Anyways if you decide to self host this bot, please make sure you give me plenty
 **scrappie#5451** - Music system. - https://github.com/cryolabs - \
 **Eleonor#6661** - Moderation command. \
 **SpikeThatMike#6397** - Public and Dev command system. \
+**bilekcat#2638** - AntiScam system. \
 **Any others...** - If you believe I used any of your exact code and you want credit please add me on Discord or join the support server and explain.
