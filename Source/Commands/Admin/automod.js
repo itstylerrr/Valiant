@@ -4,6 +4,7 @@ const DB = require('../../Structures/Database/Schemas/ModerationDB');
 module.exports = {
     name: "automod",
     description: "AI Assisted Moderation Setup.",
+    public: true,
     permission: "ADMINISTRATOR",
     options: [
         {
