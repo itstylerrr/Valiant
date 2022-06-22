@@ -4,6 +4,7 @@ module.exports = {
     name: "logging",
     description: "Select a channel for logging, to remove, run without options.",
     permission: "ADMINISTRATOR",
+    public: true,
     options: [
         {
             name: "options",
