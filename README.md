@@ -69,7 +69,7 @@ Anyways if you decide to self host this bot, please make sure you give me plenty
 **Rahuletto#0243** - Simply DJS & XP (if added) package - `npm i simply-djs` & `npm i simply-xp` \
 **NekoBot.xyz** - NekoBot API - Image manipulation commands \
 **Worn Off Keys, Discord.JS, and The Coding Den Servers** - Helping me when I get stuck (which is alot) \
-**Treotty#1168** - Status &  Automod. \
+**Treotty#1168** - Status, AutoMod, and Info command. \
 **scrappie#5451** - Music system. - https://github.com/cryolabs - \
 **Eleonor#6661, WoW#4929, & Ronan Films#0001** - Moderation command. \
 **SpikeThatMike#6397** - Public and Dev command system. \
