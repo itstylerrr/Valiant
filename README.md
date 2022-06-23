@@ -74,4 +74,5 @@ Anyways if you decide to self host this bot, please make sure you give me plenty
 **Eleonor#6661, WoW#4929, & Ronan Films#0001** - Moderation command. \
 **SpikeThatMike#6397** - Public and Dev command system. \
 **bilekcat#2638** - AntiScam system. \
+**sunny^^#9999** - Bot's Website \
 **Any others...** - If you believe I used any of your exact code and you want credit please add me on Discord or join the support server and explain.
