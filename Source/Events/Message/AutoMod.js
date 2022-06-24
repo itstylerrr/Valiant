@@ -37,7 +37,6 @@ module.exports = {
         if(!speech || !speech.attributeScores) return;
 
         const score = speech.attributeScores.TOXICITY.summaryScore.value; // Min: 0.0, Max: 1.0
-        console.log(score);
 
         // Chart Generation
         const width = 1500;
