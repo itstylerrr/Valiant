@@ -17,8 +17,6 @@ module.exports = {
         DB.findOne({id: message.guildId}, async (err, data) => {
             if (err) throw err;
 
-            console.log(data.addons.settings.xp);
-
             if (data.addons.settings.xp === false) return;
 
             if (date.getDay() == 6 || date.getDay() == 0) {
