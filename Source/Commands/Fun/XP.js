@@ -227,8 +227,8 @@ module.exports = {
               description: "Toggle the XP system (turn on or off).",
               type: "STRING",
               choices: [
-                { name: "✅ Enable", value: "enable" },
-                { name: "🚫 Disable", value: "disable" },
+                { name: "✅ Enable", value: "enabled" },
+                { name: "🚫 Disable", value: "disabled" },
               ],
             },
           ],
@@ -270,6 +270,7 @@ module.exports = {
 
     // ⟬                    Command                    ⟭
     const { options } = interaction;
+
     switch (options.getSubcommandGroup()) {
       case "rolesetup": {
         if (!interaction.member.permissions.has("ADMINISTRATOR")) {
@@ -523,6 +524,36 @@ module.exports = {
                 .setColor("GREEN")
               ]
             });
+          }
+
+          case "toggle" : {
+            const tog = options.getString("value");
+
+            if (tog === "enabled") {
+              data.guild.addons.xp.enabled = true;
+              await data.guild.markModified("addons");
+              await data.guild.save();
+              return interaction.reply({
+                embeds: [
+                  new MessageEmbed()
+                  .setTitle(`✅ XP system has been ${tog}.`)
+                  .setColor("GREEN")
+                ]
+              });
+            }
+
+            if (tog === "disabled") {
+              data.guild.addons.xp.enabled = false;
+              await data.guild.markModified("addons");
+              await data.guild.save();
+              return interaction.reply({
+                embeds: [
+                  new MessageEmbed()
+                  .setTitle(`🚫 XP system has been ${tog}.`)
+                  .setColor("RED")
+                ]
+              });
+            }
           }
         }
       }
