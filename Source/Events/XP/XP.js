@@ -19,7 +19,7 @@ module.exports = {
         DB.findOne({id: message.guildId}, async (err, data) => {
             if (err) throw err;
 
-            if (data.addons.settings.xp === false) return;
+            if (data.addons.xp.enabled === false) return;
 
             if (date.getDay() == 6 || date.getDay() == 0) {
             xp.addXP(message, message.author.id, message.guild.id, {
