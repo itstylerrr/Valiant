@@ -43,6 +43,7 @@ module.exports = {
         const channel = interaction.options.getChannel("channel");
         if (!channel) {
             data.guild.addons.settings.cbChId = null;
+            data.guild.markModified("addons.settings");
             data.guild.save();
             return interaction.reply({
                 embeds: [

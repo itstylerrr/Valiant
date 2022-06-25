@@ -16,18 +16,15 @@ module.exports = {
 
         DB.findOne({ id: message.guild.id }, async (err, data) => {
             if (!data) return;
-            if (!data.addons.settings.cbChId);
+            if (!data.addons.settings.cbChId) return;
             if(err) throw err;
-            const id = data.addons.settings.chChId;
-
-            if (message.channel.id !== id) return;
+            const id = data.addons.settings.cbChId;
 
             const channel = message.guild.channels.cache.get(id);
-            if (!channel) return;
 
             simplydjs.chatbot(client, message, {
-                channelId: channel.id,
-                name: message.guild.me.displayName,
+                channelId: `${channel.id}`,
+                name: `${message.guild.me.displayName}`,
                 developer: `<@${botinfo.devId}>`
             });
           });
