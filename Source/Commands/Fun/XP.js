@@ -204,6 +204,20 @@ module.exports = {
           ],
         },
         {
+          name: "lvlchannel",
+          description: "Set the channel where level up messages should be sent.",
+          type: "SUB_COMMAND",
+          options: [
+            {
+              name: "channel",
+              description: "The channel where level up messages should be sent.",
+              type: "CHANNEL",
+              channelTypes: ["GUILD_TEXT"],
+              required: true,
+            }
+          ]
+        },
+        {
           name: "toggle",
           description: "Toggle the XP system (turn on or off).",
           type: "SUB_COMMAND",
@@ -380,6 +394,7 @@ module.exports = {
           case "rank": {
             const member = options.getMember("user") || interaction.user;
             xp.rank(interaction, member.id, interaction.guild.id, {
+              background: data.guild.xp.background || "https://wallpaperaccess.com/full/1151440.jpg",
               color: interaction.guild.me.displayHexColor,
             })
               .then(async (img) => {
@@ -429,10 +444,70 @@ module.exports = {
                 embeds: [
                   new MessageEmbed()
                   .setDescription(`✅ Succesfully added ${num} XP to ${user}`)
+                  .setColor("GREEN")
                 ]
               })
             );
             return;
+          }
+
+          case "setlevel" : {
+            const user = options.getUser("user");
+            const num = options.getInteger("level");
+
+            xp.setLevel(interaction, user.id, interaction.guildId, num).then(
+              interaction.reply({
+                embeds: [
+                  new MessageEmbed()
+                  .setDescription(`✅ Succesfully set ${user}'s level to level ${num}.`)
+                  .setColor("GREEN")
+                ]
+              })
+            );
+            return;
+          }
+
+          case "reset" : {
+            const user = options.getUser("user");
+
+            xp.reset(user.id, interaction.guildId).then(
+              interaction.reply({
+                embeds: [
+                  new MessageEmbed()
+                  .setDescription(`✅ Succesfully reset ${user}'s XP database.`)
+                  .setColor("GREEN")
+                ]
+              })
+            );
+            return;
+          }
+
+          case "background" : {
+            function isImage(url) {
+              return /\.(jpg|jpeg|png|svg)$/.test(url);
+            }
+            const bg = isImage(options.getString("url"));
+            if (bg === false) {
+              return interaction.reply({
+                embeds: [
+                  new MessageEmbed()
+                  .setTitle("🚫 Must be a valid image.")
+                  .setColor("RED")
+                ]
+              });
+            } else if (bg === true) {
+              data.guild.xp.background = options.getString("url");
+              await data.guild.markModified("xp");
+              await data.guild.save();
+              return interaction.reply({
+                embeds: [
+                  new MessageEmbed()
+                  .setTitle("✅ Updated the guilds XP card background.")
+                  .setColor("GREEN")
+                  .setImage(options.getString("url"))
+                ]
+              })
+            }
           }
         }
       }

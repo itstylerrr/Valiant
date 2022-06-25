@@ -11,7 +11,9 @@ module.exports = {
      * @param {Client} client
      */
     async execute(message, client) {
+        if (!message) return;
         if (!message.guild) return;
+        if (!message.author) return;
         if (message.author.bot) return;
 
         DB.findOne({id: message.guildId}, async (err, data) => {

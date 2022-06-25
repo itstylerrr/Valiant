@@ -29,6 +29,12 @@ module.exports = mongoose.model("Guild", new mongoose.Schema({
             loggingId: null,
             xp: false,
             xpBackground: null,
+            xpChannel: null,
+        },
+        xp: {
+            enabled: false,
+            background: null,
+            channel: null
         }
     }}
 
