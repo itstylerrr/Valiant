@@ -431,6 +431,21 @@ module.exports = {
                 ]
               });
             });
+            return;
+          }
+
+          case "chart" : {
+            const num = options.getInteger("users") || 5;
+            const type = options.getString("type") || "line";
+
+            xp.charts(interaction, {
+              position: num,
+              type: type,
+            }).then((attach) => {
+              return interaction.reply({
+                files: [attach]
+              });
+            });
           }
         }
       }
