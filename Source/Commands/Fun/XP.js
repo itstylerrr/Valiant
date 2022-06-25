@@ -394,7 +394,7 @@ module.exports = {
           case "rank": {
             const member = options.getMember("user") || interaction.user;
             xp.rank(interaction, member.id, interaction.guild.id, {
-              background: data.guild.xp.background || "https://wallpaperaccess.com/full/1151440.jpg",
+              background: data.guild.addons.xp.background || "https://wallpaperaccess.com/full/1151440.jpg",
               color: interaction.guild.me.displayHexColor,
             })
               .then(async (img) => {
@@ -402,7 +402,7 @@ module.exports = {
                 await interaction.followUp({ files: [img] });
               })
               .catch((err) => {
-                return interaction.reply({
+                return interaction.followUp({
                   embeds: [
                     new MessageEmbed()
                       .setTitle("🚫 Error")
@@ -496,8 +496,8 @@ module.exports = {
                 ]
               });
             } else if (bg === true) {
-              data.guild.xp.background = options.getString("url");
-              await data.guild.markModified("xp");
+              data.guild.addons.xp.background = options.getString("url");
+              await data.guild.markModified("addons");
               await data.guild.save();
               return interaction.reply({
                 embeds: [
@@ -506,13 +506,29 @@ module.exports = {
                   .setColor("GREEN")
                   .setImage(options.getString("url"))
                 ]
-              })
+              });
             }
+          }
+
+          case "lvlchannel" : {
+            const chan = options.getChannel("channel");
+            data.guild.addons.xp.channel = chan.id;
+            await data.guild.markModified("addons");
+            await data.guild.save();
+
+            return interaction.reply({
+              embeds: [
+                new MessageEmbed()
+                .setDescription(`✅ Set rank up message channel to ${chan}.`)
+                .setColor("GREEN")
+              ]
+            });
           }
         }
       }
     }
     } catch (error) {
+      console.log(error);
       if (interaction.replied) {
         interaction.channel.send({
           embeds: [
