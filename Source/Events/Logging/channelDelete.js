@@ -34,7 +34,7 @@ module.exports = {
                                     { name: "Channel Name:", value: `${channel.name}` },
                                     { name: "Deleted By:", value: `${chanLog.executor || "Unable to fetch."}` },
                                     { name: "Parent Name:", value: channel.parent.name, inline: true},
-                                    { name: "Position:", value: `${channel.position}`, inline: true },
+                                    { name: "Position:", value: `Deleted`, inline: true },
                                     { name: "Channel Type:", value: `${channel.type}` }
                                 )
                                 .setColor("RED")
