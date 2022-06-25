@@ -413,6 +413,25 @@ module.exports = {
                 });
               });
           }
+
+          case "leaderboard" : {
+            await xp.leaderboard(client, interaction.guildId).then(board => {
+              let lb = [];
+              board.forEach(user => {
+                lb.push(`**⟦ ${user.position} ⟧** ${user.tag} | **XP:** ${user.shortxp}\n\n`)
+              });
+
+              interaction.reply({
+                embeds: [
+                  new MessageEmbed()
+                  .setTitle(`👑 ${interaction.guild.name}'s XP Leaderboard 👑`)
+                  .setDescription(lb.join(' '))
+                  .setFooter(`💝 ${client.application.name} | /invite`)
+                  .setColor(interaction.guild.me.displayHexColor)
+                ]
+              });
+            });
+          }
         }
       }
 
