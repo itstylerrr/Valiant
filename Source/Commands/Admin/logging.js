@@ -76,6 +76,7 @@ module.exports = {
             data.logging.memberLogs = null;
             data.logging.modLogs = null;
             data.logging.guildLogs = null;
+            data.logging.markModified();
             data.logging.save();
             return interaction.reply({
                 embeds: [
