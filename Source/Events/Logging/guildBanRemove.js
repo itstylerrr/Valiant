@@ -2,7 +2,7 @@ const { MessageEmbed, Client, GuildChannel } = require("discord.js");
 const DB = require("../../Structures/Database/Schemas/Logging");
 
 module.exports = {
-    name: "guildBanAdd",
+    name: "guildBanRemove",
     /**
      *
      * @param {GuildChannel} channel
@@ -22,16 +22,15 @@ module.exports = {
                 if (guild.channels.cache.has(chan)) {
                     const fetchedLogs = await guild.fetchAuditLogs({
                         limit: 1,
-                        type: "MEMBER_BAN_ADD",
+                        type: "MEMBER_BAN_REMOVE",
                     });
                     const banLog = fetchedLogs.entries.first();
                     const correctChannel = guild.channels.cache.get(chan);
-                    const ban = guild.bans.cache.get(banLog.target.id);
 
                     return correctChannel.send({
                         embeds: [
                             new MessageEmbed()
-                            .setTitle("🔨 Member Ban Added")
+                            .setTitle("🔨 Member Ban Removed")
                             .setDescription(
                                 `
                                 **Target Info:**
