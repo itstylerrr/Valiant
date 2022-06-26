@@ -31,9 +31,9 @@ module.exports = {
                     const Embed = new MessageEmbed()
                     .setTitle("📌 Message Pin Updated")
                     .addFields(
-                        { name: "Channel Name:", value: `${msgLog.extra.channel.name} (${msgLog.extra.channel})` },
+                        { name: "Channel Name:", value: `${msgLog.extra.channel} (\`${msgLog.extra.channel.id}\`)` },
                         { name: "Pinned By:", value: `${msgLog.executor || "Unable to fetch."} (\`${msgLog.executor.id}\`)` },
-                        { name: "Content;", value: `${pinedMsg.content || "No content, message is either an image or an embed."}` },
+                        { name: "Content:", value: `${pinedMsg.content || "No content, message is either an image or an embed."}` },
                         { name: "URL:", value: `[go to](https://discord.com/channels/${pinedMsg.guildId}/${pinedMsg.channelId}/${pinedMsg.id})` },
                         { name: "Message Created:", value: `<t:${parseInt(pinedMsg.createdTimestamp / 1000)}:R>` },
                         { name: "Author Data:", value: `<@${pinedMsg.author.id || "System Message"}> (\`${pinedMsg.author.id || "System Message"}\`)\n**Bot?** ${pinedMsg.author.bot}` }
