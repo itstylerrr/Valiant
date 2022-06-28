@@ -36,7 +36,7 @@ module.exports = {
                                 **Account Created:**
                                 <t:${parseInt(member.user.createdTimestamp / 1000)}:R>
 
-                                **Event Happened:** <t:${parseInt(Date.now())}:R>
+                                **Event Happened:** <t:${parseInt(Date.now() / 1000)}:R>
                                 `
                             )
                             .setColor("RED")
