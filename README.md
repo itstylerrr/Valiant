@@ -53,8 +53,8 @@ Anyways if you decide to self host this bot, please make sure you give me plenty
 - [x] Add server settings command
 - [x] Add moderation command
 - [x] Welcome & Goodbye system
+- [x] Add per-guild XP system
 - [ ] Add per-guild economy system
-- [ ] Add per-guild XP system
 - [ ] Finish economy
 - [ ] Add a chatbot
 - [ ] Get to 50 total **working** commands.
