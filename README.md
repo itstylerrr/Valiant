@@ -55,9 +55,9 @@ Anyways if you decide to self host this bot, please make sure you give me plenty
 - [x] Welcome & Goodbye system
 - [x] Add per-guild XP system
 - [x] Create website
+- [x] Add a chatbot
 - [ ] Add per-guild economy system
 - [ ] Finish economy
-- [ ] Add a chatbot
 - [ ] Get to 50 total **working** commands.
 - [ ] Get 75 + commands; current: 15
 
@@ -75,4 +75,5 @@ Anyways if you decide to self host this bot, please make sure you give me plenty
 **SpikeThatMike#6397** - Public and Dev command system. \
 **bilekcat#2638** - AntiScam system. \
 **sunny^^#9999** - Bot's Website \
+**WoW#4929** - Ticketing system. - https://github.com/WoWisme - \
 **Any others...** - If you believe I used any of your exact code and you want credit please add me on Discord or join the support server and explain.
