@@ -41,6 +41,8 @@ module.exports = {
                                 **Executor Info:**
                                 ${msgLog.executor} (\`${msgLog.executor.id}\`)
                                 Bot? ${msgLog.executor.bot}
+
+                                **Event Happened:** <t:${parseInt(msgLog.createdTimestamp / 1000)}:R>
                                 `
                             )
                             .setColor(guild.me.displayHexColor)
