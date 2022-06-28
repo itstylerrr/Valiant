@@ -50,7 +50,7 @@ module.exports = {
 
                                 ${changes.join()}
 
-                                **Event Happened:** <t:${parseInt(chanLog.createdTimestamp / 1000)}:R>
+                                **Event Happened:** <t:${parseInt(emojiLog.createdTimestamp / 1000)}:R>
                                 `
                             )
                             .setColor(guild.me.displayHexColor)
