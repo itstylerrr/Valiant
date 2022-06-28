@@ -10,7 +10,7 @@ module.exports = async (client, PG, chalk) => {
         if (event.name) {
             if (!Events.includes(event.name)) {
                 const L = file.split("/")
-                return table.addRow(event.name || L[L.length - 2]/L[L.length - 1], "✖")
+                return Table.addRow(event.name || L[L.length - 2]/L[L.length - 1], "✖")
             }
         }
 
