@@ -9,7 +9,7 @@ const DB = require("../../Structures/Database/Schemas/TicketSetup");
 module.exports = {
     name: "ticketsetup",
     permissions: "ADMINISTRATOR",
-    public: false,
+    public: true,
     description: "Setup an openticket in the tickets channel.",
     options: [
         {name: "channel", description: "Select the where the ticketsetup is sent too.", required: true, type: "CHANNEL", channelTypes: ["GUILD_TEXT"]},

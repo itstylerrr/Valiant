@@ -5,7 +5,7 @@ const { execute } = require("./TicketSetup");
 module.exports = {
     name: "ticket",
     permissions: "ADMINISTRATOR",
-    public: false,
+    public: true,
     description: "Ticket Actions",
     options: [
         {
