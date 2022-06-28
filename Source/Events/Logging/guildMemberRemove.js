@@ -2,7 +2,7 @@ const { MessageEmbed, Client, GuildChannel, GuildMember } = require("discord.js"
 const DB = require("../../Structures/Database/Schemas/Logging");
 
 module.exports = {
-    name: "guildMemberLeft",
+    name: "guildMemberRemove",
     /**
      *
      * @param {GuildMember} member
@@ -37,7 +37,7 @@ module.exports = {
                                 <t:${parseInt(member.user.createdTimestamp / 1000)}:R>
                                 `
                             )
-                            .setColor("GREEN")
+                            .setColor("RED")
                         ]
                     });
                 } else {
