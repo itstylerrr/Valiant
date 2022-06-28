@@ -35,7 +35,8 @@ module.exports = {
                                     { name: "Created By:", value: `${chanLog.executor || "Unable to fetch."}` },
                                     { name: "Parent Name:", value: channel.parent.name, inline: true},
                                     { name: "Position:", value: `${channel.position}` },
-                                    { name: "Channel Type:", value: `${channel.type}` }
+                                    { name: "Channel Type:", value: `${channel.type}` },
+                                    { name: "Event Took Place:", value: `<t:${parseInt(chanLog.createdTimestamp / 1000)}:R>` }
                                 )
                                 .setColor("GREEN")
                             ]
