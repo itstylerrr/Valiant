@@ -36,7 +36,8 @@ module.exports = {
                         { name: "Content:", value: `${pinedMsg.content || "No content, message is either an image or an embed."}` },
                         { name: "URL:", value: `[go to](https://discord.com/channels/${pinedMsg.guildId}/${pinedMsg.channelId}/${pinedMsg.id})` },
                         { name: "Message Created:", value: `<t:${parseInt(pinedMsg.createdTimestamp / 1000)}:R>` },
-                        { name: "Author Data:", value: `<@${pinedMsg.author.id || "System Message"}> (\`${pinedMsg.author.id || "System Message"}\`)\n**Bot?** ${pinedMsg.author.bot}` }
+                        { name: "Author Data:", value: `<@${pinedMsg.author.id || "System Message"}> (\`${pinedMsg.author.id || "System Message"}\`)\n**Bot?** ${pinedMsg.author.bot}` },
+                        { name: "Event Took Place:", value: `<t:${parseInt(pinedMsg.createdTimestamp / 1000)}:R>` }
                     )
                     .setDescription(`If there were embeds or attachments sent with the message, they will be sent below this message.`)
                     .setColor("GREEN")
