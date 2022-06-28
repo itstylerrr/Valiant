@@ -32,6 +32,8 @@ module.exports = {
 
                                 **Account Created:**
                                 <t:${parseInt(member.user.createdTimestamp / 1000)}:R>
+
+                                **Event Happened:** <t:${parseInt(member.joinedTimestamp / 1000)}:R>
                                 `
                             )
                             .setColor("GREEN")
