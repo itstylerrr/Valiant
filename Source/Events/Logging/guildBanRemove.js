@@ -40,6 +40,8 @@ module.exports = {
                                 **Executor Info:**
                                 ${banLog.executor} (\`${banLog.executor.id}\`)
                                 Bot? ${banLog.executor.bot}
+
+                                **Event Happened:** <t:${parseInt(banLog.createdTimestamp / 1000)}:R>
                                 `
                             )
                             .setColor(guild.me.displayHexColor)
