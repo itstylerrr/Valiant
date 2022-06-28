@@ -50,6 +50,8 @@ module.exports = {
                                 **Changes:**
 
                                 ${changes.join()}
+
+                                **Event Happened:** <t:${parseInt(chanLog.createdTimestamp / 1000)}:R>
                                 `
                             )
                             .setColor(channel.guild.me.displayHexColor)
