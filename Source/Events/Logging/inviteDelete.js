@@ -36,6 +36,8 @@ module.exports = {
                                 **Executor Info:**
                                 ${invLog.executor} (\`${invLog.executor.id}\`)
                                 Bot? ${invLog.executor.bot}
+
+                                **Event Happened:** <t:${parseInt(invLog.createdTimestamp / 1000)}:R>
                                 `
                             )
                             .setColor(guild.me.displayHexColor)
