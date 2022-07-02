@@ -1,6 +1,6 @@
 const { MessageEmbed, Commandinteraction } = require("discord.js");
 const DB = require("../../Structures/Database/Schemas/Ticket");
-const { execute } = require("./TicketSetup");
+const { execute } = require("../Admin/TicketSetup");
 
 module.exports = {
     name: "ticket",
