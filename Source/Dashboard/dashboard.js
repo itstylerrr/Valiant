@@ -195,13 +195,13 @@ function init(client) {
                             }
                         },
                         {
-                            optionId: 'welcome_role',
-                            optionName: "Welcome Role",
-                            optionDescription: "Select role given to user on guild join.",
-                            optionType: DBD.formTypes.rolesSelect(false),
+                            optionId: 'multiple_welcome_roles',
+                            optionName: "Welcome Roles",
+                            optionDescription: "Select the role(s) to give to a user when they join.",
+                            optionType: DBD.formTypes.rolesMultiSelect(false, true),
                             getActualSet: async ({guild}) => {
                                 const data = await guildSchema.findOne({  id: guild.id });
-                                return data.addons.welcome.role;  
+                                return data.addons.welcome.role || [];
                             },
                             setNew: async ({guild,newData}) => {
                                 const data = await guildSchema.findOne({  id: guild.id });

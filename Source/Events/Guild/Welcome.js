@@ -14,11 +14,13 @@ module.exports = {
         const guildDb = await DB.findOne({ id: guild.id });
         if (!guildData.addons.welcome.enabled) return;
         if (guildData.addons.welcome.role) {
-            let dbRole = guildDb.addons.welcome.role;
-            let checkedRole = guild.roles.cache.find(r => r.id === dbRole);
-            if (typeof checkedRole !== undefined) {
-                member.roles.add(checkedRole.id);
-            }
+            const roles = guildData.addons.welcome.role;
+            roles.forEach(role => {
+                let checkedRole = guild.roles.cache.find(r => r.id === role);
+                if (typeof checkedRole !== undefined) {
+                    member.roles.add(checkedRole.id);
+                }
+            });
         }
         let welcomeChannel = await client.tools.resolveChannel(guildData.addons.welcome.channel, guild);
         if (!welcomeChannel) return;
