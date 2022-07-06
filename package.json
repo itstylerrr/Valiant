@@ -8,6 +8,10 @@
   },
   "author": "Tyler",
   "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/itstylerrr/Valiant.git"
+  },
   "dependencies": {
     "@discordjs/opus": "^0.5.3",
     "@distube/spotify": "^1.2.1",

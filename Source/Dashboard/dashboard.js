@@ -56,7 +56,7 @@ function init(client) {
                 index: {
                     card: {
                         category: "Valiant's Panel - The center of everything",
-                        title: `Welcome to Valiant... A multipurpose discord bot that can do whatever you dream of, execpt *bake you a cake*...`,
+                        title: `Welcome to Valiant... A multipurpose discord bot that can do whatever you dream of, execpt <i>bake you a cake<\i>...`,
                         image: "https://docs.google.com/drawings/d/e/2PACX-1vS2QIenk9jw5iT_thON1kA8rLl-rX_OUFYlp0yKFc_f_wxw1wn1tMW7T_8eKI5WAtqAlw9_Cjf-166m/pub?w=927&h=178",
                         footer: "To get started, just sign in using your discord account!",
                     },
