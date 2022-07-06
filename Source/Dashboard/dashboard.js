@@ -107,7 +107,7 @@ function init(client) {
                         {
                             commandName: "ticketsetup",
                             commandUsage: "/ticketsetup [options]",
-                            commandDescription: "Setup the ticket buttons and messages, also configureable in the dashboard.",
+                            commandDescription: "Setup the ticket buttons and messages, not configurable in the dashboard due to the nature of the command and how it is handeled.",
                             commandAlias: "No aliases",
                         },
                         {
