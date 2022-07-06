@@ -4,6 +4,7 @@ function init(client) {
     const DBD = require("discord-dashboard");
     const mongoose = require("mongoose");
     const guildSchema = require("../Structures/Database/Schemas/Guild");
+    const automodSchema = require('../Structures/Database/Schemas/ModerationDB');
 
     const totalUsers = client.guilds.cache.reduce((a, b) => a + b.memberCount, 0)
     const usersWord = client.guilds.cache.reduce((a, b) => a + b.memberCount, 0) > 1
@@ -39,8 +40,8 @@ function init(client) {
                     imageFavicon: "https://docs.google.com/drawings/d/e/2PACX-1vSnKAiuOYUjIz30bN85bJiaHrZ31dx0qvgxDY840hg02UlxCAzPIMxMFKETwrb9B1sYVnav2wzqr_gJ/pub?w=304&h=311",
                     iconURL: "https://docs.google.com/drawings/d/e/2PACX-1vSnKAiuOYUjIz30bN85bJiaHrZ31dx0qvgxDY840hg02UlxCAzPIMxMFKETwrb9B1sYVnav2wzqr_gJ/pub?w=304&h=311",
                     loggedIn: "Successfully signed in.",
-                    mainColor: "#2CA8FF",
-                    subColor: "#ebdbdb",
+                    mainColor: "#1e54ac",
+                    subColor: "#739de0",
                     preloader: "Loading..."
                 },
 
@@ -369,6 +370,108 @@ function init(client) {
                                 const data = await guildSchema.findOne({ id: guild.id });
                                 data.addons.goodbye.json = newData || null;
                                 await data.markModified("addons.goodbye");
+                                await data.save();
+                                return;
+                            }
+                        },
+                    ]
+                },
+
+                {
+                    categoryId: "automodConfig",
+                    categoryName: "Automod Settings",
+                    categoryDescription: "Configure the automod settings.",
+                    categoryOptionsList: [
+                        {
+                            optionType: 'spacer',
+                            title: 'Automod Channels Configuration',
+                            description: 'This is the section where you will configure channels for logging and where the bot should scan messages.'
+                        },
+                        {
+                            optionId: 'automodChannels',
+                            optionName: "Automod Channels",
+                            optionDescription: "Add channels that the automod scan in..",
+                            optionType: DBD.formTypes.channelsMultiSelect(false, false ['GUILD_TEXT']),
+                            getActualSet: async ({ guild }) => {
+                                const data = await automodSchema.findOne({ GuildID: guild.id });
+                                return data.ChannelIDs || [];
+                            },
+                            setNew: async ({ guild, newData }) => {
+                                const data = await automodSchema.findOne({ GuildID: guild.id });
+                                data.ChannelIDs = newData;
+                                await data.save();
+                                return;
+                            }
+                        },
+                        {
+                            optionId: 'logging_channel',
+                            optionName: "Logging Channel",
+                            optionDescription: "Select the channel where a embed containing the data of a message that was detected as toxic will be sent.",
+                            optionType: DBD.formTypes.channelsMultiSelect(false, false ['GUILD_TEXT']),
+                            getActualSet: async ({ guild }) => {
+                                const data = await automodSchema.findOne({ GuildID: guild.id });
+                                return data.LogChannelIDs;
+                            },
+                            setNew: async ({ guild, newData }) => {
+                                const data = await automodSchema.findOne({ GuildID: guild.id });
+                                data.LogChannelIDs = newData || null;
+                                await data.markModified();
+                                await data.save();
+                                return;
+                            }
+                        },
+                        {
+                            optionType: 'spacer',
+                            title: 'Punishment Configuration',
+                            description: 'This is the section where you can edit all of the punishments that will be issued to people that break the certian levels of toxicity.'
+                        },
+                        {
+                            optionId: 'lvl1',
+                            optionName: "Level 1 Punishment",
+                            optionDescription: "Select what you would like the punishment to be for toxicity that scores the level low.",
+                            optionType: DBD.formTypes.select({"Delete Message": 'delete', "Timeout Author": 'timeout', "Kick Author": 'kick', "Ban Author": 'ban', "Do Nothing": null}),
+                            getActualSet: async ({guild}) => {
+                                const data = await automodSchema.findOne({ GuildID: guild.id });
+                                return data.Punishments[0];
+                            },
+                            setNew: async ({guild,newData}) => {
+                                const data = await automodSchema.findOne({ GuildID: guild.id });
+                                data.Punishments[0] = newData || null;
+                                await data.markModified();
+                                await data.save();
+                                return;
+                            }
+                        },
+                        {
+                            optionId: 'lvl2',
+                            optionName: "Level 2 Punishment",
+                            optionDescription: "Select what you would like the punishment to be for toxicity that scores the level medium.",
+                            optionType: DBD.formTypes.select({"Delete Message": 'delete', "Timeout Author": 'timeout', "Kick Author": 'kick', "Ban Author": 'ban', "Do Nothing": null}),
+                            getActualSet: async ({guild}) => {
+                                const data = await automodSchema.findOne({ GuildID: guild.id });
+                                return data.Punishments[1];
+                            },
+                            setNew: async ({guild,newData}) => {
+                                const data = await automodSchema.findOne({ GuildID: guild.id });
+                                data.Punishments[1] = newData || null;
+                                await data.markModified();
+                                await data.save();
+                                return;
+                            }
+                        },
+                        {
+                            optionId: 'lvl3',
+                            optionName: "Level 3 Punishment",
+                            optionDescription: "Select what you would like the punishment to be for toxicity that scores the level high.",
+                            optionType: DBD.formTypes.select({"Delete Message": 'delete', "Timeout Author": 'timeout', "Kick Author": 'kick', "Ban Author": 'ban', "Do Nothing": null}),
+                            getActualSet: async ({guild}) => {
+                                const data = await automodSchema.findOne({ GuildID: guild.id });
+                                return data.Punishments[2];
+                            },
+                            setNew: async ({guild,newData}) => {
+                                const data = await automodSchema.findOne({ GuildID: guild.id });
+                                data.Punishments[2] = newData || null;
+                                await data.markModified();
                                 await data.save();
                                 return;
                             }
