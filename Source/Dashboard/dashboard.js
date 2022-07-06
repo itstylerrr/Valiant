@@ -5,6 +5,7 @@ function init(client) {
     const mongoose = require("mongoose");
     const guildSchema = require("../Structures/Database/Schemas/Guild");
     const automodSchema = require('../Structures/Database/Schemas/ModerationDB');
+    const loggingSchema = require("../Structures/Database/Schemas/Logging");
 
     const totalUsers = client.guilds.cache.reduce((a, b) => a + b.memberCount, 0)
     const usersWord = client.guilds.cache.reduce((a, b) => a + b.memberCount, 0) > 1
@@ -471,6 +472,65 @@ function init(client) {
                             setNew: async ({guild,newData}) => {
                                 const data = await automodSchema.findOne({ GuildID: guild.id });
                                 data.Punishments[2] = newData || null;
+                                await data.markModified();
+                                await data.save();
+                                return;
+                            }
+                        },
+                    ]
+                },
+
+                {
+                    categoryId: "loggingChannels",
+                    categoryName: "Logging Channels",
+                    categoryDescription: "Configure the logging channels.",
+                    categoryOptionsList: [
+                        {
+                            optionId: 'memberLogs',
+                            optionName: "Member Log Channel",
+                            optionDescription: "Select the channel where member logs will be sent. To disable, select the value: -",
+                            optionType: DBD.formTypes.channelsSelect(false, ['GUILD_TEXT']),
+                            getActualSet: async ({ guild }) => {
+                                const data = await loggingSchema.findOne({ GuildID: guild.id });
+                                return data.memberLogs || null;
+                            },
+                            setNew: async ({ guild, newData }) => {
+                                const data = await loggingSchema.findOne({ GuildID: guild.id });
+                                data.memberLogs = newData || null;
+                                await data.markModified();
+                                await data.save();
+                                return;
+                            }
+                        },
+                        {
+                            optionId: 'modLogs',
+                            optionName: "Mod Log Channel",
+                            optionDescription: "Select the channel where mod logs will be sent. To disable, select the value: -",
+                            optionType: DBD.formTypes.channelsSelect(false, ['GUILD_TEXT']),
+                            getActualSet: async ({ guild }) => {
+                                const data = await loggingSchema.findOne({ GuildID: guild.id });
+                                return data.modLogs || null;
+                            },
+                            setNew: async ({ guild, newData }) => {
+                                const data = await loggingSchema.findOne({ GuildID: guild.id });
+                                data.modLogs = newData || null;
+                                await data.markModified();
+                                await data.save();
+                                return;
+                            }
+                        },
+                        {
+                            optionId: 'guildLogs',
+                            optionName: "Guild Log Channel",
+                            optionDescription: "Select the channel where guild logs will be sent. To disable, select the value: -",
+                            optionType: DBD.formTypes.channelsSelect(false, ['GUILD_TEXT']),
+                            getActualSet: async ({ guild }) => {
+                                const data = await loggingSchema.findOne({ GuildID: guild.id });
+                                return data.guildLogs || null;
+                            },
+                            setNew: async ({ guild, newData }) => {
+                                const data = await loggingSchema.findOne({ GuildID: guild.id });
+                                data.guildLogs = newData || null;
                                 await data.markModified();
                                 await data.save();
                                 return;
