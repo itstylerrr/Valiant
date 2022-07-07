@@ -1,5 +1,4 @@
 function init(client) {
-    /* --- IMPORTS --- */
     const { dashboard, mongoURI } = require('../../Configs/main.json');
     const DarkDashboard = require('dbd-dark-dashboard');
     const DBD = require("discord-dashboard");
