@@ -1,4 +1,5 @@
 console.clear();
+console.log("Bot starting up...");
 // ◜    Require Everything  ◞
 const {token, music} = require("../../Configs/main.json");
 const {Client, Collection} = require("discord.js");

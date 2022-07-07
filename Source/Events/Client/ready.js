@@ -6,6 +6,7 @@ const fs = require("fs");
 const os = require("os");
 const osUtils = require("os-utils");
 const ms = require("ms");
+const { init } = require("../../Dashboard/dashboard");
 let xp = require('simply-xp');
 
 const DB = require('../../Structures/Database/Schemas/ClientDB');
@@ -67,6 +68,7 @@ module.exports = {
             console.log(`Mongo Error: ${err}`);
         });
         xp.connect(mongoURI);
+        init(client);
         console.log(chalk.green.bold("Success!"));
         console.log(chalk.gray("Connected To"), chalk.yellow(`${client.user.tag}`));
         console.log(
