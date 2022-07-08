@@ -44,7 +44,7 @@ module.exports = {
         console.log(chalk.bold(chalk.red("◜     [Details]     ◞")));
         console.log(chalk.green(chalk.bold(`${botinfo.name || "Bot"}'s Start Logging ⫸`)), chalk.white("Initializing Project..."));
         const statusArray = [
-            `help | ^help, WATCHING`,
+            `valiant.greezy.tk`,
             `the server for users, COMPETING`,
             `over you 😗, WATCHING`,
             `you do amazing things 💗, WATCHING`,
@@ -68,7 +68,7 @@ module.exports = {
             console.log(`Mongo Error: ${err}`);
         });
         xp.connect(mongoURI);
-        init(client);
+        // init(client);
         console.log(chalk.green.bold("Success!"));
         console.log(chalk.gray("Connected To"), chalk.yellow(`${client.user.tag}`));
         console.log(
