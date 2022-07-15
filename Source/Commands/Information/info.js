@@ -41,7 +41,7 @@ module.exports = {
             ],
         }
     ],
-    public: false,
+    public: true,
     /**
      * 
      * @param {CommandInteraction} interaction 

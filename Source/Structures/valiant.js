@@ -42,8 +42,8 @@ client.manager = new Manager({
 });
 module.exports = client;
 
-// ◜    Require Systems  ◞
-// Coming Soon...
+// ◜  Systems  ◞
+
 
 // ◜    Require Handlers  ◞
 ["Events", "Commands", "Buttons"].forEach(handler => {

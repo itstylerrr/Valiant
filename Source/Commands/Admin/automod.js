@@ -275,13 +275,13 @@ module.exports = {
                             .setColor("GREEN")
                             .setTitle(`Automod Configuration`)
                             .addFields({
-                                name: '<:icon_reply:962547429914337300> Channels',
+                                name: '<:reply:994779155243737129> Channels',
                                 value: `${ChannelIDs.join("\n") || "Not Provided Yet"}
                                 ㅤ
                                 `,
                                 inline: false,
                             }, {
-                                name: '<:icon_reply:962547429914337300> Punishments',
+                                name: '<:reply:994779155243737129> Punishments',
                                 value: `\`•\` Low Severity: ${docs.Punishments[0] || 'Not Provided Yet'}
                                 \`•\` Medium Severity: ${docs.Punishments[1] || 'Not Provided Yet'}
                                 \`•\` High Severity: ${docs.Punishments[2] || 'Not Provided Yet'}
@@ -289,7 +289,7 @@ module.exports = {
                                 `,
                                 inline: false,
                             }, {
-                                name: '<:icon_reply:962547429914337300> Logging Channels',
+                                name: '<:reply:994779155243737129> Logging Channels',
                                 value: `${LogChannelIDs.join("\n") || "Not Provided Yet"}
                                 ㅤ
                                 `,

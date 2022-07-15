@@ -68,7 +68,7 @@ module.exports = {
             console.log(`Mongo Error: ${err}`);
         });
         xp.connect(mongoURI);
-        // init(client);
+        init(client);
         console.log(chalk.green.bold("Success!"));
         console.log(chalk.gray("Connected To"), chalk.yellow(`${client.user.tag}`));
         console.log(

@@ -110,6 +110,7 @@ module.exports = {
                 .send({ embeds: [Embed], components: [Buttons] });
         
                 interaction.reply({ content: `The embed was sent to ${Channel}`, ephemeral: true})
+
         } catch (err) {
             const errEmbed = new MessageEmbed()
             .setColor("RED")

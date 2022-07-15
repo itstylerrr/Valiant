@@ -6,6 +6,7 @@ const {
 } = require("discord.js");
 const DB = require("../../Structures/Database/Schemas/Ticket");
 const TicketSetupData = require("../../Structures/Database/Schemas/TicketSetup");
+const client = require("../../Structures/valiant");
 
 
 module.exports = {
@@ -17,7 +18,8 @@ module.exports = {
      */
 
     async execute(interaction) {
-        if(!interaction.isButton()) return;
+        try {
+            if(!interaction.isButton()) return;
         const { guild, member, customId } = interaction;
 
         const Data = await TicketSetupData.findOne({GuildID: guild.id});
@@ -36,22 +38,16 @@ module.exports = {
                 upsert: true,
             }
             );
+            console.log("Button Data:" + customId + ID);
+            console.log("Everyone ID: " + Data.Everyone + "Handler Roles: " + Data.Handlers + "Member ID: " +  member.id );
 
         await guild.channels.create(`${customId} ${ID}`, {
             type: "GUILD_TEXT",
             parent: Data.Category,
             permissionOverwrites: [
                 {
-                    id: member.id,
-                    allow: ["SEND_MESSAGES", "VIEW_CHANNEL", "READ_MESSAGE_HISTORY"]
-                },
-                {
-                    id: Data.Everyone,
+                    id: interaction.guild.id,
                     deny: ["SEND_MESSAGES", "VIEW_CHANNEL", "READ_MESSAGE_HISTORY"]
-                },
-                {
-                    id: Data.Handlers,
-                    allow: ["SEND_MESSAGES", "VIEW_CHANNEL", "READ_MESSAGE_HISTORY"]
                 },
             ],
         }).then(async(channel) => {
@@ -119,5 +115,9 @@ module.exports = {
                     ephemeral: true,
                 });
             });
+        } catch (e) {
+            console.log("InitialTicket Error: " + e);
+            return;
+        }
     },
 };

@@ -4,7 +4,7 @@ const xp = require("simply-xp");
 module.exports = {
   name: "xp",
   description: "Use all the options for the XP from 1 command.",
-  public: false,
+  public: true,
   options: [
     {
       name: "user",

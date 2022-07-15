@@ -66,7 +66,7 @@ Anyways if you decide to self host this bot, please make sure you give me plenty
 ## ©️ Credits
 
 **-Tyler#7922** - Developer. \
-**Assistants Center** - Discord-Dashboard package and DBD Dark Theme package - `npm i discord-dashboard dbd-dark-dashboard` https://assistantscenter.com \
+**Assistants Center** - Discord-Dashboard package and DBD Dark Theme package - `npm i discord-dashboard dbd-dark-dashboard` https://assistantscenter.com
 **Rahuletto#0243** - Simply DJS & XP (if added) package - `npm i simply-djs` & `npm i simply-xp` \
 **NekoBot.xyz** - NekoBot API - Image manipulation commands \
 **Worn Off Keys, Discord.JS, and The Coding Den Servers** - Helping me when I get stuck (which is alot) \

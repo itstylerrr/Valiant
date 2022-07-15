@@ -1,11 +1,19 @@
 function init(client) {
+    /* --- IMPORTS --- */
     const { dashboard, mongoURI } = require('../../Configs/main.json');
+    const {
+        MessageEmbed, 
+        CommandInteraction, 
+        MessageActionRow, 
+        MessageButton
+    } = require("discord.js");
     const DarkDashboard = require('dbd-dark-dashboard');
     const DBD = require("discord-dashboard");
     const mongoose = require("mongoose");
     const guildSchema = require("../Structures/Database/Schemas/Guild");
     const automodSchema = require('../Structures/Database/Schemas/ModerationDB');
     const loggingSchema = require("../Structures/Database/Schemas/Logging");
+    const ticketSchema = require("../Structures/Database/Schemas/TicketSetup");
 
     const totalUsers = client.guilds.cache.reduce((a, b) => a + b.memberCount, 0)
     const usersWord = client.guilds.cache.reduce((a, b) => a + b.memberCount, 0) > 1
@@ -30,14 +38,12 @@ function init(client) {
             acceptPrivacyPolicy: true,
             domain: 'http://valiant.greezy.tk',
             bot: client,
-            custom_html: `
-                <html prefix="og: https://ogp.me/ns#">
-                <head>
-                    <meta property="og:title" content="Valiant | Dashboard" />
-                    <meta property="og:url" content="https://valiant.greezy.tk" />
-                    <meta property="og:image" content="https://docs.google.com/drawings/d/e/2PACX-1vS2QIenk9jw5iT_thON1kA8rLl-rX_OUFYlp0yKFc_f_wxw1wn1tMW7T_8eKI5WAtqAlw9_Cjf-166m/pub?w=927&h=178"/>
-                <\head>
-            `,
+            invite: {
+                clientId: "862812525920518144",
+                permissions: '8',
+                redirectUri: "https://valiant.greezy.tk/discord/callback",
+                scopes: ["bot", "applications.commands"],
+            },
             theme: DarkDashboard({
                 information: {
                     createdBy: "Greezy Development",
@@ -55,11 +61,16 @@ function init(client) {
                     preloader: "Loading..."
                 },
 
-                invite: {
-                    clientId: "990376052813615115",
-                    permissions: '8',
-                    redirectUri: "http://valiant.greezy.tk/discord/callback",
-                    scopes: ["bot", "application.commands", "guilds"],
+                custom_html: {
+                    head: `<html og="https://ogp.me/ns#%22%3E">
+                           <meta property="og:title" content="Valiant | Dashboard"/>
+                           <meta property="og:image" content="https://docs.google.com/drawings/d/e/2PACX-1vS2QIenk9jw5iT_thON1kA8rLl-rX_OUFYlp0yKFc_f_wxw1wn1tMW7T_8eKI5WAtqAlw9_Cjf-166m/pub?w=309&h=59"/>
+                           <meta property="og:url" content="https://valiant.greezy.tk"/>`
+                },
+
+                guildAfterAuthorization: {
+                    use: true,
+                    guildId: "971534964527087726"
                 },
 
                 index: {
@@ -97,7 +108,7 @@ function init(client) {
                         },
                         {
                             commandName: "chatbot",
-                            commandUsage: "/chatbot [channel]",
+                            commandUsage: "/chatbot [channel/none to remove]",
                             commandDescription: "Choose the channel in which the chatbot will interact in, also configurable in the dashboard.",
                             commandAlias: "No aliases",
                         },
@@ -125,6 +136,60 @@ function init(client) {
                             commandDescription: "Configure the settings for what the bot should do when a member leave the guild, also configurable in the dashboard with more options.",
                             commandAlias: "No aliases",
                         },
+                        {
+                            commandName: "xp",
+                            commandUsage: "/xp [options]",
+                            commandDescription: "For users, they can view charts, leaderboards, and ranks. For admins, they can manage the guilds XP through 1 command.",
+                            commandAlias: "No aliases",
+                        },
+                        {
+                            commandName: "info",
+                            commandUsage: "/info [channel/guild/user]",
+                            commandDescription: "Get information about a channel, guild, or user in 1 command.",
+                            commandAlias: "No aliases",
+                        },
+                        {
+                            commandName: "invite",
+                            commandUsage: "/invite",
+                            commandDescription: "Get an discord bot invite popup to invite Valiant to your own server! This is the best command :)",
+                            commandAlias: "No aliases",
+                        },
+                        {
+                            commandName: "profile",
+                            commandUsage: "/profile [user/none to get yours]",
+                            commandDescription: "Get a image that contains a users profile picture, banner, and badges.",
+                            commandAlias: "No aliases",
+                        },
+                        {
+                            commandName: "status",
+                            commandUsage: "/status",
+                            commandDescription: "Get information on the bots status at the current time.",
+                            commandAlias: "No aliases",
+                        },
+                        {
+                            commandName: "userinfo",
+                            commandUsage: "Right click on a user, click on apps, then click userinfo.",
+                            commandDescription: "Use this context menu to get information on a user that only you can see! (Admins Only)",
+                            commandAlias: "No aliases",
+                        },
+                        {
+                            commandName: "mod",
+                            commandUsage: "/mod [options]",
+                            commandDescription: "Preform all moderation actions from 1 command. Includes: ban, kick, warn, remove timeout, remove warn, view infractions ect.",
+                            commandAlias: "No aliases",
+                        },
+                        {
+                            commandName: "ticket",
+                            commandUsage: "/ticket [options]",
+                            commandDescription: "All actions for tickers, for example you can add and remove members from the ticket channel.",
+                            commandAlias: "No aliases",
+                        },
+                        {
+                            commandName: "music",
+                            commandUsage: "/music [options]",
+                            commandDescription: "A entire music system built into 1 command.",
+                            commandAlias: "No aliases",
+                        },
                         ],
                     },
                 ],
@@ -142,7 +207,7 @@ function init(client) {
                             optionType: DBD.formTypes.input('Prefix', 1, 4, false, false), // reqired false (if empty reset to default)
                             getActualSet: async ({ guild }) => {
                                 const data = await guildSchema.findOne({ id: guild.id });
-                                return data.prefix;
+                                return data.prefix || null;
                             },
                             setNew: async ({ guild, newData }) => {
                                 await guildSchema.findOneAndUpdate(
@@ -164,7 +229,7 @@ function init(client) {
                             optionType: DBD.formTypes.channelsSelect(false, ['GUILD_TEXT']),
                             getActualSet: async ({ guild }) => {
                                 const data = await guildSchema.findOne({ id: guild.id });
-                                return data.addons.settings.cbChId;
+                                return data.addons.settings.cbChId || null;
                             },
                             setNew: async ({ guild, newData }) => {
                                 const data = await guildSchema.findOne({ id: guild.id });
@@ -213,7 +278,7 @@ function init(client) {
                             optionType: DBD.formTypes.channelsSelect(false, ['GUILD_TEXT']),
                             getActualSet: async ({ guild }) => {
                                 const data = await guildSchema.findOne({ id: guild.id });
-                                return data.addons.welcome.channel;
+                                return data.addons.welcome.channel || null;
                             },
                             setNew: async ({ guild, newData }) => {
                                 const data = await guildSchema.findOne({ id: guild.id });
@@ -281,7 +346,7 @@ function init(client) {
                             }),
                             getActualSet: async ({ guild }) => {
                                 const data = await guildSchema.findOne({ id: guild.id });
-                                return data.addons.welcome.json;
+                                return data.addons.welcome.json || null;
                             },
                             setNew: async ({ guild, newData }) => {
                                 const data = await guildSchema.findOne({ id: guild.id });
@@ -323,7 +388,7 @@ function init(client) {
                             optionType: DBD.formTypes.channelsSelect(false, ['GUILD_TEXT']),
                             getActualSet: async ({ guild }) => {
                                 const data = await guildSchema.findOne({ id: guild.id });
-                                return data.addons.goodbye.channel;
+                                return data.addons.goodbye.channel || null;
                             },
                             setNew: async ({ guild, newData }) => {
                                 const data = await guildSchema.findOne({ id: guild.id });
@@ -374,7 +439,7 @@ function init(client) {
                             }),
                             getActualSet: async ({ guild }) => {
                                 const data = await guildSchema.findOne({ id: guild.id });
-                                return data.addons.goodbye.json;
+                                return data.addons.goodbye.json || null;
                             },
                             setNew: async ({ guild, newData }) => {
                                 const data = await guildSchema.findOne({ id: guild.id });
@@ -420,7 +485,7 @@ function init(client) {
                             optionType: DBD.formTypes.channelsMultiSelect(false, false['GUILD_TEXT']),
                             getActualSet: async ({ guild }) => {
                                 const data = await automodSchema.findOne({ GuildID: guild.id });
-                                return data.LogChannelIDs;
+                                return data.LogChannelIDs || null;
                             },
                             setNew: async ({ guild, newData }) => {
                                 const data = await automodSchema.findOne({ GuildID: guild.id });
@@ -442,7 +507,7 @@ function init(client) {
                             optionType: DBD.formTypes.select({ "Delete Message": 'delete', "Timeout Author": 'timeout', "Kick Author": 'kick', "Ban Author": 'ban', "Do Nothing": null }),
                             getActualSet: async ({ guild }) => {
                                 const data = await automodSchema.findOne({ GuildID: guild.id });
-                                return data.Punishments[0];
+                                return data.Punishments[0] || null;
                             },
                             setNew: async ({ guild, newData }) => {
                                 const data = await automodSchema.findOne({ GuildID: guild.id });
@@ -459,7 +524,7 @@ function init(client) {
                             optionType: DBD.formTypes.select({ "Delete Message": 'delete', "Timeout Author": 'timeout', "Kick Author": 'kick', "Ban Author": 'ban', "Do Nothing": null }),
                             getActualSet: async ({ guild }) => {
                                 const data = await automodSchema.findOne({ GuildID: guild.id });
-                                return data.Punishments[1];
+                                return data.Punishments[1] || null;
                             },
                             setNew: async ({ guild, newData }) => {
                                 const data = await automodSchema.findOne({ GuildID: guild.id });
@@ -476,11 +541,266 @@ function init(client) {
                             optionType: DBD.formTypes.select({ "Delete Message": 'delete', "Timeout Author": 'timeout', "Kick Author": 'kick', "Ban Author": 'ban', "Do Nothing": null }),
                             getActualSet: async ({ guild }) => {
                                 const data = await automodSchema.findOne({ GuildID: guild.id });
-                                return data.Punishments[2];
+                                return data.Punishments[2] || null;
                             },
                             setNew: async ({ guild, newData }) => {
                                 const data = await automodSchema.findOne({ GuildID: guild.id });
                                 data.Punishments[2] = newData || null;
+                                await data.markModified();
+                                await data.save();
+                                return;
+                            }
+                        },
+                    ]
+                },
+
+                {
+                    categoryId: "ticketConfig",
+                    categoryName: "Ticket Settings",
+                    categoryDescription: "Configure and send the ticket embeds, and buttons.",
+                    categoryOptionsList: [
+                        {
+                            optionType: 'spacer',
+                            title: 'Main Settings',
+                            description: 'Here you will configure all of the main settings for the ticket system. No embed building, yet ;)'
+                        },
+                        {
+                            optionId: 'channel',
+                            optionName: "Ticket Channel",
+                            optionDescription: "Select the channel where the embed with buttons to start tickets will be sent. To disable, select the value: -",
+                            optionType: DBD.formTypes.channelsSelect(false, ['GUILD_TEXT']),
+                            getActualSet: async ({ guild }) => {
+                                const data = await ticketSchema.findOne({ GuildID: guild.id });
+                                return data.Channel || null;
+                            },
+                            setNew: async ({ guild, newData }) => {
+                                const data = await ticketSchema.findOne({ GuildID: guild.id });
+                                data.Channel = newData || null;
+                                await data.markModified();
+                                await data.save();
+                                return;
+                            }
+                        },
+                        {
+                            optionId: 'category',
+                            optionName: "Tickets Category",
+                            optionDescription: "Select the category where the ticket channels will be added. To disable, select the value: -",
+                            optionType: DBD.formTypes.channelsSelect(false, ['GUILD_CATEGORY']),
+                            getActualSet: async ({ guild }) => {
+                                const data = await ticketSchema.findOne({ GuildID: guild.id });
+                                return data.Category || null;
+                            },
+                            setNew: async ({ guild, newData }) => {
+                                const data = await ticketSchema.findOne({ GuildID: guild.id });
+                                data.Category = newData || null;
+                                await data.markModified();
+                                await data.save();
+                                return;
+                            }
+                        },
+                        {
+                            optionId: 'transcript',
+                            optionName: "Transcript Channel",
+                            optionDescription: "Select the channel where the ticket transcripts will be sent. To disable, select the value: -",
+                            optionType: DBD.formTypes.channelsSelect(false, ['GUILD_TEXT']),
+                            getActualSet: async ({ guild }) => {
+                                const data = await ticketSchema.findOne({ GuildID: guild.id });
+                                return data.Transcripts || null;
+                            },
+                            setNew: async ({ guild, newData }) => {
+                                const data = await ticketSchema.findOne({ GuildID: guild.id });
+                                data.Transcripts = newData || null;
+                                await data.markModified();
+                                await data.save();
+                                return;
+                            }
+                        },
+                        {
+                            optionId: 'handler_role',
+                            optionName: "Handler Roles",
+                            optionDescription: "Select the role(s) that will be able to preform actions within the tickets.",
+                            optionType: DBD.formTypes.rolesMultiSelect(false, true),
+                            getActualSet: async ({ guild }) => {
+                                const data = await ticketSchema.findOne({ GuildID: guild.id });
+                                return data.Handlers || [];
+                            },
+                            setNew: async ({ guild, newData }) => {
+                                const data = await ticketSchema.findOne({ GuildID: guild.id });
+                                data.Handlers = newData || null;
+                                data.Everyone = guild.id;
+                                await data.markModified();
+                                await data.save();
+                                return;
+                            }
+                        },
+                        {
+                            optionType: 'spacer',
+                            title: 'Create Buttons',
+                            description: 'Here you will be able to set the text for the buttons, if you want an emoji and you are on PC use WINDOWSKEY + . to open up an emoji menu.'
+                        },
+                        {
+                            optionId: 'button1',
+                            optionName: "First Button",
+                            optionDescription: "Set the text for the first button. Between 1 and 20 characters.",
+                            optionType: DBD.formTypes.input('🕴️ Member Report', 1, 20, false, false), // reqired false (if empty reset to default)
+                            getActualSet: async ({ guild }) => {
+                                const data = await ticketSchema.findOne({ GuildID: guild.id });
+                                return data.Buttons[0] || null;
+                            },
+                            setNew: async ({ guild, newData }) => {
+                                const data = await ticketSchema.findOne({ GuildID: guild.id})
+                                data.Buttons[0] = newData || null;
+                                await data.markModified();
+                                await data.save();
+                            }
+                        },
+                        {
+                            optionId: 'button2',
+                            optionName: "Second Button",
+                            optionDescription: "Set the text for the second button. Between 1 and 20 characters.",
+                            optionType: DBD.formTypes.input('🪲 Bug Report', 1, 20, false, false), // reqired false (if empty reset to default)
+                            getActualSet: async ({ guild }) => {
+                                const data = await ticketSchema.findOne({ GuildID: guild.id });
+                                return data.Buttons[1] || null;
+                            },
+                            setNew: async ({ guild, newData }) => {
+                                const data = await ticketSchema.findOne({ GuildID: guild.id})
+                                data.Buttons[1] = newData || null;
+                                await data.markModified();
+                                await data.save();
+                            }
+                        },
+                        {
+                            optionId: 'button3',
+                            optionName: "Third Button",
+                            optionDescription: "Set the text for the third button. Between 1 and 20 characters.",
+                            optionType: DBD.formTypes.input('🌐 Everything Else', 1, 20, false, false), // reqired false (if empty reset to default)
+                            getActualSet: async ({ guild }) => {
+                                const data = await ticketSchema.findOne({ GuildID: guild.id });
+                                return data.Buttons[2] || null;
+                            },
+                            setNew: async ({ guild, newData }) => {
+                                const data = await ticketSchema.findOne({ GuildID: guild.id})
+                                data.Buttons[2] = newData || null;
+                                await data.markModified();
+                                await data.save();
+                            }
+                        },
+                        {
+                            optionType: 'spacer',
+                            title: 'Create Embeds',
+                            description: 'Here you will create the embed that will be sent to the channel you specify right when you save these settings, and the embed for when a ticket is created.'
+                        },
+                        {
+                            optionId: 'initial',
+                            optionName: "Initial Message",
+                            optionDescription: "Build the message that will be sent to the channel you specified earler.",
+                            optionType: DBD.formTypes.embedBuilder({
+                                username: client.user.username,
+                                avatarURL: client.user.avatarURL({ dynamic: true }),
+                                defaultJson: {
+                                    content: "Need assistance? Click a ticket!",
+                                    embed: {
+                                        timestamp: null,
+                                        url: "https://valiant.greezy.tk/invite",
+                                        description: "There once was a man that needed assistance, then Valiants ticket system came into existance!",
+                                        author: {
+                                            name: "Need help? Click a ticket!",
+                                            url: "https://valiant.greezy.tk/invite",
+                                            icon_url: "https://github.com/itstylerrr/Valiant/blob/main/Extra/Images/Logos/valiantlogo-blue-large.png?raw=true"
+                                        },
+                                        image: {
+                                            url: "https://www.natchitochestimes.com/wp-content/uploads/2022/05/clickitorticket1.jpg"
+                                        },
+                                        footer: {
+                                            text: "At the time of writing this I realised that YOU HAVENT INVITED ME TO YOUR SERVER YET GO TO IT RIGHT NOW.",
+                                            icon_url: "https://github.com/itstylerrr/Valiant/blob/main/Extra/Images/Logos/valiantlogo-blue-large.png?raw=true"
+                                        },
+                                        fields: [
+                                            {
+                                                name: "Hi :)",
+                                                value: "Your doing great :) Wait! Stop! Don't delete me I have been a good little field :c"
+                                            },
+                                            {
+                                                name: "Meanie",
+                                                value: "YOU DELEATED MY FRIEND :C ANYWAYS STOP DONT DELETE ME :CCC oh wait, you have to? fine ;c I guess go ahead. ANYWAYS DID YOU KNOW THAT YOU CAN USE EMOJIS FROM WHERE THE BOT ISNT :) SO COOL YAY",
+                                                inline: false
+                                            },
+                                        ]
+                                    }
+                                }
+                            }),
+                            getActualSet: async ({ guild }) => {
+                                const data = await ticketSchema.findOne({ GuildID: guild.id });
+                                return data.initial || null;
+                            },
+                            setNew: async ({ guild, newData }) => {
+                                const data = await ticketSchema.findOne({ GuildID: guild.id });
+                                data.initial = newData || null;
+                                await data.markModified();
+                                await data.save();
+                                const chan = data.Channel;
+                                if (chan) {
+                                    const channel = client.channels.cache.get(chan);
+                                    const MsgAndEmbed = newData;
+                                    if (data.Buttons) {
+                                        const buttons = new MessageActionRow();
+                                        buttons.addComponents(
+                                            new MessageButton()
+                                            .setCustomId(data.Buttons[0])
+                                            .setLabel(data.Buttons[0])
+                                            .setStyle("PRIMARY"),
+                                            new MessageButton()
+                                            .setCustomId(data.Buttons[1])
+                                            .setLabel(data.Buttons[1])
+                                            .setStyle("PRIMARY"),
+                                            new MessageButton()
+                                            .setCustomId(data.Buttons[2])
+                                            .setLabel(data.Buttons[2])
+                                            .setStyle("PRIMARY"),
+                                        )
+                                        channel.send({ content: newData.content, embeds: [newData.embed], components: [buttons] });
+                                    }
+                                }
+                                return;
+                            }
+                        },
+                        {
+                            optionId: 'individual',
+                            optionName: "Per Ticket Message",
+                            optionDescription: "Build the message that will be sent right when the user creates a ticket.",
+                            optionType: DBD.formTypes.embedBuilder({
+                                username: client.user.username,
+                                avatarURL: client.user.avatarURL({ dynamic: true }),
+                                defaultJson: {
+                                    content: "Hello! Please wait for the <@staffroleid> team to get here!",
+                                    embed: {
+                                        timestamp: null,
+                                        url: "https://valiant.greezy.tk/invite",
+                                        description: "In the meantime, you can start describing your issue!",
+                                        author: {
+                                            name: null,
+                                            url: "https://valiant.greezy.tk/invite",
+                                            icon_url: null
+                                        },
+                                        image: {
+                                            url: null
+                                        },
+                                        footer: {
+                                            text: null,
+                                            icon_url: null
+                                        },
+                                        fields: null,
+                                    }
+                                }
+                            }),
+                            getActualSet: async ({ guild }) => {
+                                const data = await ticketSchema.findOne({ GuildID: guild.id });
+                                return data.individual || null;
+                            },
+                            setNew: async ({ guild, newData }) => {
+                                const data = await ticketSchema.findOne({ GuildID: guild.id });
+                                data.individual = newData || null;
                                 await data.markModified();
                                 await data.save();
                                 return;
@@ -580,7 +900,7 @@ function init(client) {
                             optionType: DBD.formTypes.channelsSelect(false, ['GUILD_TEXT']),
                             getActualSet: async ({ guild }) => {
                                 const data = await guildSchema.findOne({ id: guild.id });
-                                return data.addons.xp.channel;
+                                return data.addons.xp.channel || null;
                             },
                             setNew: async ({ guild, newData }) => {
                                 const data = await guildSchema.findOne({ id: guild.id });
@@ -598,7 +918,7 @@ function init(client) {
                             optionType: DBD.formTypes.input('Image URL'), // reqired false (if empty reset to default)
                             getActualSet: async ({ guild }) => {
                                 const data = await guildSchema.findOne({ id: guild.id });
-                                return data.addons.xp.background;
+                                return data.addons.xp.background || null;
                             },
                             setNew: async ({ guild, newData }) => {
                                 const data = await guildSchema.findOne({ id: guild.id });

@@ -4,10 +4,14 @@
     "botinfo": {
         "name": "your bots name",
         "id": "your bots id",
-        "testServer": "the id of the testing server"
+        "testServer": "the id of the testing server",
+        "devId": "bot owner's id"
     },
     "webhooks": {
-        "starts": "webhook link to get start messages to"
+        "starts": "webhook link to get start messages to",
+        "joins": "webhook link for guild join",
+        "leaves": "webhook link for guild leave",
+        "errors": "webhook link for errors"
     },
     "API": {
         "google": "google api key this is for the Perspective API for automod, read https://developers.perspectiveapi.com/s/docs-get-started for details."
@@ -29,5 +33,12 @@
                 "secure": true
             }
         ]
+    },
+
+    "dashboard": {
+        "client_secret": "client secret",
+        "dbd_lic": "discord bot dashboard license key get from https://assistantscenter.com/licenses/",
+        "client_id": "client id again yes ik again",
+        "redirect_uri": "redirect uri must have in oauth"
     }
 }

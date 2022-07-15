@@ -102,7 +102,7 @@ module.exports = {
             if (message.length > 1024) {
                 Embed.addField("Message:", "Your message was longer than 1024 characters. Please try again.")
             } else if (message.length < 1025) {
-                data.guild.addons.goodbye.message = message;
+                data.guild.addons.goodbye.json.content = message;
                 data.guild.markModified("addons.goodbye");
                 await data.guild.save();
                 Embed.addField("Message:", `${message}`);
